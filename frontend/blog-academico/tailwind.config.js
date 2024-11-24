@@ -12,7 +12,7 @@ export default {
         'secondary': '#3A3A3A',
         'bg-color': '#F8EDE3'
       },
-      fontFamily: {
+      fontFamily: { 
         'primary': ['Lato', 'serif']
       }
     },

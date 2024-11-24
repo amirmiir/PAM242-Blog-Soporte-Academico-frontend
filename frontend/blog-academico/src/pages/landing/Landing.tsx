@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../components/Header/NavBar';
+import Header from '../../components/nav-bar/NavBar';
 
 const Landing: React.FC = () => {
     return (

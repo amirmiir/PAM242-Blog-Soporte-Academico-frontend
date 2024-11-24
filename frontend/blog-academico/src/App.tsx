@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import NavBar from './components/NavBar/NavBar';
+import NavBar from './components/nav-bar/NavBar';
 import './App.css';
 
 const App: React.FC = () => {
@@ -15,4 +15,4 @@ const App: React.FC = () => {
 };
 
 
-export default App
+export default App;
