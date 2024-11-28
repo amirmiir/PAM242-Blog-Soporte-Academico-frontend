@@ -10,34 +10,38 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 // Import required modules
-import { Parallax, Pagination, Navigation } from 'swiper/modules';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../shared/utils/routes';
 
 type BannerSlide = {
     "header": string,
-    "description": string
+    "description": string,
+    "bg-img": string
 }
 
 const HomeBanner: FC = () => {
 
     const BannerSlides: BannerSlide[] = [
         {
-            "header": "Pregunta 1",
+            "header": "Sé parte de la comunidad de estudios de la Facultad de Ciencias",
             "description": "Respuesta lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
+            "bg-img": PabCentralUNI
         },
         {
-            "header": "Pregunta 2",
+            "header": "Comparte información con los demás",
             "description": "Respuesta lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
+            "bg-img": PabCentralUNI
         },
         {
-            "header": "Pregunta 3",
+            "header": "Refuerza tus conocimientos",
             "description": "Respuesta lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
+            "bg-img": PabCentralUNI
         }
     ];
 
     return (
-        <div className="bg-black text-white w-full h-screen overflow-hidden">
+        <div className=" text-white w-full h-screen overflow-hidden">
             <Swiper
                 style={{
                     '--swiper-navigation-color': '#fff',
@@ -45,9 +49,14 @@ const HomeBanner: FC = () => {
                 }}
                 slidesPerView={1}
                 spaceBetween={10}
+                autoplay={{
+                    delay: 3000,
+                    disableOnInteraction: false,
+                }}
                 pagination={{
                     clickable: true,
                 }}
+                navigation={true}
                 breakpoints={{
                     640: {
                         slidesPerView: 1,
@@ -62,24 +71,32 @@ const HomeBanner: FC = () => {
                         spaceBetween: 50,
                     },
                 }}
-                modules={[Pagination]}
-                className="mySwiper"
+                modules={[Autoplay, Navigation, Pagination]}
+                className="mySwiper h-3/4"
             >
                 {
                     BannerSlides.map((item: BannerSlide, index: number) => (
-                        <SwiperSlide key={index} className="flex flex-col justify-center items-center h-full mb-4 p-10">
-                            <div className="title text-3xl font-semibold" data-swiper-parallax="-300">
-                                {item.header}
+                        <SwiperSlide style={{
+                            backgroundImage: `url(${item['bg-img']})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                        }} key={index} className="flex flex-col justify-left text-left mb-4 p-10 content-center">
+                            <div className="absolute inset-0 bg-black opacity-50"></div>
+
+                            <div className="relative w-2/5 pl-24">
+                                <div className="title text-4xl font-extrabold" data-swiper-parallax="-300">
+                                    {item.header}
+                                </div>
+                                <div className="text mb-6" data-swiper-parallax="-100">
+                                    <p>{item.description}</p>
+                                </div>
+                                <Link to={ROUTES.LOGIN} className="rounded-lg border border-red-500 bg-red-500 py-2 px-4 text-white hover:bg-red-600">Unirme</Link>
                             </div>
-                            <div className="text mb-6" data-swiper-parallax="-100">
-                                <p>{item.description}</p>
-                            </div>
-                            <Link to={ROUTES.LOGIN} className="rounded-lg border border-red-500 bg-red-500 py-2 px-4 text-white hover:bg-red-600">Unirme</Link>
+
                         </SwiperSlide>
                     ))
                 }
             </Swiper>
-
         </div>
     );
 };

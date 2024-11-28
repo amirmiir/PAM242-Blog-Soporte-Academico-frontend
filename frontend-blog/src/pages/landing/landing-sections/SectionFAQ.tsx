@@ -24,7 +24,7 @@ const SectionFAQ: FC = () => {
 
     return (
         <div>
-            <h2>Preguntas Frecuentes</h2>
+            <h2 className="text-2xl font-semibold">Preguntas Frecuentes</h2>
 
             {/* Expresión para mostrar las preguntas frecuentes a partir de un array de objetos definidos para tener título de pregunta y respuesta */}
             {

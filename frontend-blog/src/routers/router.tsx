@@ -9,6 +9,7 @@ import QuestionID from '../pages/questions/question-id/QuestionID';
 import MakeQuestion from '../pages/questions/questions-make-question/MakeQuestion';
 import Subjects from '../pages/subjects/Subjects';
 import SubjectID from '../pages/subjects/subject-id/SubjectID';
+import RecoverPassword from '../pages/recover-password/RecoverPassword';
 
 const publicRoutes: RouteObject[] = [
     {
@@ -25,7 +26,7 @@ const publicRoutes: RouteObject[] = [
     },
     {
         path: ROUTES.RECOVERPASSWORD,
-        element: <Register />
+        element: <RecoverPassword />
     },
     {
         path: ROUTES.QUESTIONS.ROOT,
