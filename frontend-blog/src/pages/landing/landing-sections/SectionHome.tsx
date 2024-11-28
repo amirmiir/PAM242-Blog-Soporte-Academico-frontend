@@ -4,9 +4,8 @@ import HomeBanner from './HomeBanner'
 
 const SectionHome: FC = () => {
     return (
-        <div className="space-y-3 pt-3 text-center">
-            {/* Texto superior */}
-            <h1 className="text-4xl font-semibold">Blog Académico</h1>
+        <div className="space-y-3 h-screen w-full">
+            
             {/* Banner */}
             <HomeBanner/>
         </div>

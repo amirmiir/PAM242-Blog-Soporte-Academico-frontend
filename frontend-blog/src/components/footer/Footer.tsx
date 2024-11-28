@@ -2,7 +2,7 @@ import {FC} from 'react'
 
 const Footer:FC = () => {
     return (
-        <div>
+        <div className="bg-secondary text-white">
             <div>
                 Left side
             </div>

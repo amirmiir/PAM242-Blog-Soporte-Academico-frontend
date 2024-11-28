@@ -3,11 +3,12 @@ import SectionContact from './SectionContact'
 import SectionAbout from './SectionAbout'
 import SectionHome from './SectionHome'
 import SectionUs from './SectionUs'
+import SectionFAQ from './SectionFAQ'
 
 
 const LandingSections: FC = () => {
     return (
-        <div>
+        <div className="space-y-5">
             <section id="home">
                 <SectionHome />
             </section>
@@ -16,6 +17,9 @@ const LandingSections: FC = () => {
             </section>
             <section id="us">
                 <SectionUs />
+            </section>
+            <section id="faq">
+                <SectionFAQ />
             </section>
             <section id="contact">
                 <SectionContact />
