@@ -25,17 +25,17 @@ const HomeBanner: FC = () => {
     const BannerSlides: BannerSlide[] = [
         {
             "header": "Sé parte de la comunidad de estudios de la Facultad de Ciencias",
-            "description": "Respuesta lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
+            "description": "",
             "bg-img": PabCentralUNI
         },
         {
             "header": "Comparte información con los demás",
-            "description": "Respuesta lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
+            "description": "",
             "bg-img": PabCentralUNI
         },
         {
             "header": "Refuerza tus conocimientos",
-            "description": "Respuesta lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
+            "description": "",
             "bg-img": PabCentralUNI
         }
     ];

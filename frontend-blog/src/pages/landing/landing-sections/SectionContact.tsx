@@ -2,11 +2,14 @@ import { FC } from 'react'
 import { useForm } from "react-hook-form";
 
 const SectionContact: FC = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register,
+        handleSubmit, 
+        watch, 
+        formState: { errors } } = useForm();
     const onSubmit = data => console.log(data);
 
     return (
-        <div>
+        <div className="pl-16">
             <h2 className="text-2xl font-semibold">Contáctanos</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 {/* register your input into the hook by invoking the "register" function */}

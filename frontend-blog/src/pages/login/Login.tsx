@@ -13,7 +13,7 @@ const Login: FC = () => {
     ];
 
     return (
-        <div className="h-[calc(100vh-120px)] flex flex-row justify-between items-center bg-gray-900">
+        <div className="h-screen overflow-hidden flex flex-row justify-between items-center bg-gray-900">
 
             {/* Información */}
             <div className=" w-1/4 ml-32 space-y-4 ">

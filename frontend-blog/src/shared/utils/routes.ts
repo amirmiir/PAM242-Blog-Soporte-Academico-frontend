@@ -3,7 +3,13 @@
  */
 export const ROUTES = {
     
-    LANDING: '/',
+    LANDING:{
+        ROOT: '/',
+        ABOUT: '/#about',
+        US: '/#us',
+        FAQ: '/#faq',
+        CONTACT: '/#contact'
+    },
     LOGIN: '/login',
     REGISTER: '/register',
     RECOVERPASSWORD: '/recover-password',

@@ -8,7 +8,7 @@ import SectionFAQ from './SectionFAQ'
 
 const LandingSections: FC = () => {
     return (
-        <div className="space-y-5">
+        <div className="">
             <section id="home">
                 <SectionHome />
             </section>

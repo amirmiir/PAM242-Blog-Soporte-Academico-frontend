@@ -5,7 +5,7 @@ import bsalogo from '../../assets/bsa-logo.svg'
 import checkIcon from '../../assets/icons/checkIcon.png'
 import RegisterForm from './RegisterForm';
 
-const Login: FC = () => {
+const Register: FC = () => {
     const features: string[] = [
         "Accede a información actualizada sobre los cursos de la facultad",
         "Comparte tus dudas y conocimientos",
@@ -13,7 +13,7 @@ const Login: FC = () => {
     ];
 
     return (
-        <div className="h-[calc(100vh-120px)] flex flex-row justify-between items-center bg-gray-900">
+        <div className="h-screen overflow-hidden flex flex-row justify-between items-center bg-gray-900">
 
             {/* Información */}
             <div className=" w-1/4 ml-32 space-y-4 ">
@@ -59,4 +59,4 @@ const Login: FC = () => {
     )
 }
 
-export default Login
+export default Register

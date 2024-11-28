@@ -13,7 +13,7 @@ import RecoverPassword from '../pages/recover-password/RecoverPassword';
 
 const publicRoutes: RouteObject[] = [
     {
-        path: ROUTES.LANDING,
+        path: ROUTES.LANDING.ROOT  ,
         element: <Landing />
     },
     {

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../shared/utils/routes'
 import bsalogo from '../../assets/bsa-logo.svg'
@@ -14,22 +14,12 @@ const exploreNavigation: navigationLabel[] = [
     { name: "Foro", to: ROUTES.QUESTIONS.ROOT },
 ]
 
-const NavBar: FC = () => {
+const NavBarExplore: FC = () => {
     /*  Dropdown inicialmente cerrado, se activaba a través del hook useState */
     const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-    const [isScrolled, setIsScrolled] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
+    console.log(isDropdownOpen);
     return (
-        <header className={`max-w-screen-2xl mx-auto px-4 border-b-2 border-gray-300 bg-gray-100 h-12 ${isScrolled ? 'bg-white/80 backdrop-blur-sm shadow-md' : ''}`}>
+        <header className="max-w-screen-2xl mx-auto px-4 border-b-2 border-gray-300 bg-gray-100 h-12">
             <nav className="flex justify-between items-center h-full">
                 {/* Izquierda */}
                 <div className="flex items-center space-x-6 font-semibold">
@@ -41,7 +31,7 @@ const NavBar: FC = () => {
                                 className="h-6"
                             />
                             <strong className="text-gray-400 text-xl">BSA</strong>
-
+                            
                         </div>
                     </button>
 
@@ -50,7 +40,7 @@ const NavBar: FC = () => {
                         <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="">
                             <div className="flex flex-row items-center space-x-1">
                                 <span className="text-gray-600 hover:text-gray-800">Explorar</span>
-                                <IoIosArrowDown className="h-3 translate-y-0.5" />
+                                <IoIosArrowDown className="h-3 translate-y-0.5"/>
                             </div>
                         </button>
                         {
@@ -72,13 +62,7 @@ const NavBar: FC = () => {
                         }
                     </div>
 
-                    <a href={ROUTES.LANDING.ABOUT} className="text-gray-600 hover:text-gray-800">Acerca de</a>
-
-                    <a href={ROUTES.LANDING.US} className="text-gray-600 hover:text-gray-800">Nosotros</a>
-
-                    <a href={ROUTES.LANDING.FAQ} className="text-gray-600 hover:text-gray-800">Preguntas Frecuentes</a>
-
-                    <a href={ROUTES.LANDING.CONTACT} className="text-gray-600 hover:text-gray-800">Contáctanos</a>
+                    
                 </div>
 
 
@@ -105,4 +89,4 @@ const NavBar: FC = () => {
 };
 
 
-export default NavBar
+export default NavBarExplore

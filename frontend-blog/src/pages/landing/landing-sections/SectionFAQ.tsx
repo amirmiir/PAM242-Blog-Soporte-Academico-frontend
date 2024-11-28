@@ -23,7 +23,7 @@ const SectionFAQ: FC = () => {
     ];
 
     return (
-        <div>
+        <div className="pl-16 space-y-4">
             <h2 className="text-2xl font-semibold">Preguntas Frecuentes</h2>
 
             {/* Expresión para mostrar las preguntas frecuentes a partir de un array de objetos definidos para tener título de pregunta y respuesta */}
