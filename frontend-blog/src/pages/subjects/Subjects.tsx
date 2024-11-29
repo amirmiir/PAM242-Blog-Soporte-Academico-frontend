@@ -4,7 +4,7 @@ import SubjectsContent from './SubjectsContent'
 
 const Subjects: FC = () => {
     return (
-        <div>
+        <div className="h-[calc(100vh-10rem)]">
             <NavBar />
             <div className="flex flex-col items-center py-8">
                 <h1 className="text-3xl font-semibold">Explora los cursos</h1>

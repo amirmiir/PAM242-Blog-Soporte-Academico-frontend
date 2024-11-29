@@ -33,7 +33,7 @@ const NavBar: FC = () => {
             <nav className="flex justify-between items-center h-full">
                 {/* Izquierda */}
                 <div className="flex items-center space-x-6 font-semibold">
-                    <button className="">
+                    <Link to={ROUTES.LANDING.ROOT}>
                         <div className="flex items-center space-x-2">
                             <img
                                 src={bsalogo}
@@ -42,8 +42,8 @@ const NavBar: FC = () => {
                             />
                             <strong className="text-gray-400 text-xl">BSA</strong>
 
-                        </div>
-                    </button>
+                        </div></Link>
+
 
                     {/* Explorar, Dropdown */}
                     <div>
