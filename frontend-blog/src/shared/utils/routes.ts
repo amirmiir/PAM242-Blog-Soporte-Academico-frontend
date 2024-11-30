@@ -5,6 +5,7 @@ export const ROUTES = {
     
     LANDING:{
         ROOT: '/',
+        HOME: '/#home',
         ABOUT: '/#about',
         US: '/#us',
         FAQ: '/#faq',

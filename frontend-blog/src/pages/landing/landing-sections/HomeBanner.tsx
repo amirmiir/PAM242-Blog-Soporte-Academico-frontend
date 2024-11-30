@@ -1,5 +1,8 @@
 import { FC } from 'react';
 import PabCentralUNI from '../../../assets/images/PabCentralUNI.png';
+import FCUNI from '../../../assets/images/FCUNI.jpg'
+import FrenteFCUNI from '../../../assets/images/FrenteFCUNI.jpeg'
+import BiblioFCUNI from '../../../assets/images/BiblioFCUNI.jpg'
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -26,17 +29,17 @@ const HomeBanner: FC = () => {
         {
             "header": "Sé parte de la comunidad de estudios de la Facultad de Ciencias",
             "description": "",
-            "bg-img": PabCentralUNI
+            "bg-img": FCUNI
         },
         {
             "header": "Comparte información con los demás",
             "description": "",
-            "bg-img": PabCentralUNI
+            "bg-img": FrenteFCUNI
         },
         {
             "header": "Refuerza tus conocimientos",
             "description": "",
-            "bg-img": PabCentralUNI
+            "bg-img": BiblioFCUNI
         }
     ];
 
@@ -72,7 +75,7 @@ const HomeBanner: FC = () => {
                     },
                 }}
                 modules={[Autoplay, Navigation, Pagination]}
-                className="mySwiper h-3/4"
+                className="mySwiper h-3/4 "
             >
                 {
                     BannerSlides.map((item: BannerSlide, index: number) => (

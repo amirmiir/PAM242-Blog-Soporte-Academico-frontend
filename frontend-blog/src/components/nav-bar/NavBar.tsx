@@ -14,27 +14,28 @@ const exploreNavigation: navigationLabel[] = [
     { name: "Foro", to: ROUTES.QUESTIONS.ROOT },
 ]
 
+const landingNavigation: navigationLabel[] = [
+    { 'name': 'Inicio', to: ROUTES.LANDING.HOME },
+    { 'name': 'Acerca de', to: ROUTES.LANDING.ABOUT },
+    { 'name': 'Nosotros', to: ROUTES.LANDING.US },
+    { 'name': 'Preguntas Frecuentes', to: ROUTES.LANDING.FAQ },
+    { 'name': 'Contáctanos', to: ROUTES.LANDING.CONTACT },
+]
+
+
 const NavBar: FC = () => {
-    /*  Dropdown inicialmente cerrado, se activaba a través del hook useState */
-    const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-    const [isScrolled, setIsScrolled] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    /*  Dropdown Explore inicialmente cerrado, se activaba a través del hook useState */
+    const [isExploreOpen, setIsExploreOpen] = useState<boolean>(false);
+    console.log(isExploreOpen);
+    
 
     return (
-        <header className={`max-w-screen-2xl mx-auto px-4 border-b-2 border-gray-300 bg-gray-100 h-12 ${isScrolled ? 'bg-white/80 backdrop-blur-sm shadow-md' : ''}`}>
+        <header className={`max-w-screen-2xl mx-auto px-4 border-b-2 border-gray-300 bg-gray-100 h-[8vh] `}>
             <nav className="flex justify-between items-center h-full">
                 {/* Izquierda */}
-                <div className="flex items-center space-x-6 font-semibold">
+                <div className="flex h-full items-center font-semibold">
                     <Link to={ROUTES.LANDING.ROOT}>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-2 mr-4">
                             <img
                                 src={bsalogo}
                                 alt="Logo de Blog de Soporte Académico"
@@ -42,24 +43,25 @@ const NavBar: FC = () => {
                             />
                             <strong className="text-gray-400 text-xl">BSA</strong>
 
-                        </div></Link>
+                        </div>
+                    </Link>
 
 
                     {/* Explorar, Dropdown */}
-                    <div>
-                        <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="">
-                            <div className="flex flex-row items-center space-x-1">
-                                <span className="text-gray-600 hover:text-gray-800">Explorar</span>
+                    <div className="h-full">
+                        <button onClick={() => setIsExploreOpen(!isExploreOpen)} className="h-full">
+                            <div className="flex flex-row items-center space-x-1 px-4 hover:bg-red-500 text-gray-600 hover:text-white h-full">
+                                <span className="">Explorar</span>
                                 <IoIosArrowDown className="h-3 translate-y-0.5" />
                             </div>
                         </button>
                         {
-                            isDropdownOpen && (
-                                <div className="absolute mt-3 bg-gray-100 transition-all duration-200 ease-in-out z-50 border rounded-b-md px-2 text-right w-24 -translate-x-3">
+                            isExploreOpen && (
+                                <div className=" bg-gray-100 relative border rounded-b-md pb-1 text-right -translate-x-0.5 z-50">
                                     <ul>
                                         {
-                                            exploreNavigation.map((item) => (
-                                                <li key={item.name} className="text-gray-600 hover:text-gray-800">
+                                            exploreNavigation.map((item:navigationLabel, index:number) => (
+                                                <li key={index} className="text-gray-600 pr-6 pb-2 hover:text-white hover:bg-red-500">
                                                     <Link to={item.to}>
                                                         {item.name}
                                                     </Link>
@@ -72,13 +74,13 @@ const NavBar: FC = () => {
                         }
                     </div>
 
-                    <a href={ROUTES.LANDING.ABOUT} className="text-gray-600 hover:text-gray-800">Acerca de</a>
 
-                    <a href={ROUTES.LANDING.US} className="text-gray-600 hover:text-gray-800">Nosotros</a>
+                    {
+                        landingNavigation.map((item: navigationLabel, index:number) => (
+                            <a key={index} href={item.to} className="text-gray-600 h-full hover:text-white hover:bg-red-500 px-4 pt-4">{item.name}</a>
+                        ))
+                    }
 
-                    <a href={ROUTES.LANDING.FAQ} className="text-gray-600 hover:text-gray-800">Preguntas Frecuentes</a>
-
-                    <a href={ROUTES.LANDING.CONTACT} className="text-gray-600 hover:text-gray-800">Contáctanos</a>
                 </div>
 
 
