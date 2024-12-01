@@ -1,0 +1,82 @@
+[
+    {
+        "title": "Cálculo Diferencial",
+        "type": { "contentType": "Subject" },
+        "route": "/subjects/fc-BMA01",
+        "tags": [
+            { "tag": "Matemática" },
+            { "tag": "Generales" }
+        ],
+        "professors": [
+            { "name": "Bazán" },
+            { "name": "Osorio" }
+        ],
+        "views": 14,
+        "votes-up": 2,
+        "latest-upd": "2024-11-18"
+    },
+    {
+        "title": "Cálculo Integral",
+        "type": { "contentType": "Subject" },
+        "route": "/subjects/fc-BMA02",
+        "tags": [
+            { "tag": "Matemática" },
+            { "tag": "Generales" }
+        ],
+        "professors": [
+            { "name": "Bazán" },
+            { "name": "Osorio" }
+        ],
+        "views": 14,
+        "votes-up": 2,
+        "latest-upd": "2024-11-18"
+    },
+    {
+        "title": "Cálculo Diferencial e Integral Avanzado",
+        "type": { "contentType": "Subject" },
+        "route": "/subjects/fc-BMA03",
+        "tags": [
+            { "tag": "Matemática" },
+            { "tag": "Generales" }
+        ],
+        "professors": [
+            { "name": "Bazán" },
+            { "name": "Osorio" }
+        ],
+        "views": 14,
+        "votes-up": 2,
+        "latest-upd": "2024-11-18"
+    },
+    {
+        "title": "Física 1",
+        "type": { "contentType": "Subject" },
+        "route": "/subjects/fc-BFI01",
+        "tags": [
+            { "tag": "Matemática" },
+            { "tag": "Generales" }
+        ],
+        "professors": [
+            { "name": "Bazán" },
+            { "name": "Osorio" }
+        ],
+        "views": 14,
+        "votes-up": 2,
+        "latest-upd": "2024-11-18"
+    },
+    {
+        "title": "Introducción a la Computación",
+        "type": { "contentType": "Subject" },
+        "route": "/subjects/fc-BIC01",
+        "tags": [
+            { "tag": "Matemática" },
+            { "tag": "Generales" }
+        ],
+        "professors": [
+            { "name": "Bazán" },
+            { "name": "Osorio" }
+        ],
+        "views": 14,
+        "votes-up": 2,
+        "latest-upd": "2024-11-18"
+    }
+]

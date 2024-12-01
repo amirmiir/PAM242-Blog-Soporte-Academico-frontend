@@ -1,10 +1,17 @@
-import React from 'react'
+import { FC } from 'react'
+import NavBar from '../../../components/nav-bar/NavBar'
+import Footer from '../../../components/footer/Footer'
+import SubjectIDContent from './SubjectIDContent'
 
-type Props = {}
-
-const SubjectID = (props: Props) => {
+const SubjectID: FC = () => {
     return (
-        <div>SubjectID</div>
+        <div>
+            <NavBar />
+            <SubjectIDContent />
+            <Footer />
+        </div>
+
+
     )
 }
 

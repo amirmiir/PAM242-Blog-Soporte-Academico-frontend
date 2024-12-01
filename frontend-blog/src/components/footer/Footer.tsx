@@ -1,34 +1,54 @@
 import { FC } from 'react'
 import { FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa'
+import { ROUTES } from '../../shared/utils/routes'
+import bsalogo from '../../assets/bsa-logo.svg'
+
+type navigationLabel = {
+    name: string,
+    to: string
+}
+
+const landingNavigation: navigationLabel[] = [
+    { 'name': 'Inicio', to: ROUTES.LANDING.HOME },
+    { 'name': 'Acerca de', to: ROUTES.LANDING.ABOUT },
+    { 'name': 'Nosotros', to: ROUTES.LANDING.US },
+    { 'name': 'Preguntas Frecuentes', to: ROUTES.LANDING.FAQ },
+    { 'name': 'Contáctanos', to: ROUTES.LANDING.CONTACT },
+]
+
 
 const Footer: FC = () => {
     return (
-        <footer className="bg-gray-900 text-white py-10 px-4">
+        <footer className="bg-secondary text-white py-10 px-4">
             {/* Top Section */}
             <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
                 {/* Left Side - Logo and Nav */}
                 <div className="md:w-1/2 w-full">
-                    <img src="" alt="Logo" className="mb-5 w-36" />
+                    <img src={bsalogo} alt="Logo" className="mb-5 w-36 h-16" />
                     <ul className="flex flex-col md:flex-row gap-4">
-                        <li><a href="#home" className="hover:text-primary">Home</a></li>
-                        <li><a href="#services" className="hover:text-primary">Services</a></li>
-                        <li><a href="#about" className="hover:text-primary">About Us</a></li>
-                        <li><a href="#contact" className="hover:text-primary">Contact</a></li>
+                        {
+                            landingNavigation.map((item: navigationLabel, index: number) => (
+                                <li key={index}>
+                                    <a href={item.to} className="hover:text-primary">{item.name}</a>
+                                </li>
+                            ))
+                        }
                     </ul>
+
                 </div>
 
                 {/* Right Side - Newsletter */}
                 <div className="md:w-1/2 w-full">
                     <p className="mb-4">
-                        Subscribe to our newsletter to receive the latest updates, news, and offers!
+                        Suscríbete a nuestro boletín para las últimas actualizaciones y noticias.
                     </p>
                     <div className="flex">
                         <input
                             type="email"
-                            placeholder="Enter your email"
+                            placeholder="Ingresa tu email"
                             className="w-full px-4 py-2 rounded-l-md text-black"
                         />
-                        <button className="bg-primary px-6 py-2 rounded-r-md hover:bg-primary-dark">
+                        <button className="bg-red-500 px-6 py-2 rounded-r-md hover:bg-red-600">
                             Subscribe
                         </button>
                     </div>

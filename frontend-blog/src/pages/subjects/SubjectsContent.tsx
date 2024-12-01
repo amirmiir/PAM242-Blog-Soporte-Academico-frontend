@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -9,6 +9,10 @@ import 'swiper/css/pagination';
 import { Mousewheel, Pagination } from 'swiper/modules';
 import ContentFilters from './ContentFilters';
 import { ROUTES } from '../../shared/utils/routes';
+import { Link } from 'react-router-dom';
+
+import axios from 'axios'
+
 
 type Tag = {
     'tag': string,
@@ -29,160 +33,29 @@ type Content = {
     'latest-upd': string
 }
 
-type ContentType ={
+type ContentType = {
     'content': string,
 }
 
 const SubjectsContent: FC = () => {
-    const Subjects: Content[] = [
-        {
-            'title': 'Cálculo Diferencial',
-            type:{'content': 'Subject'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Matemática" }, { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }, { name: 'Osorio' }
-            ],
-            'views': 14,
-            'votes-up': 2,
-            'latest-upd': '2024-11-28'
-        },{
-            'title': 'Cálculo Diferencial',
-            type:{'content': 'Subject'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Matemática" }, { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }, { name: 'Osorio' }
-            ],
-            'views': 14,
-            'votes-up': 2,
-            'latest-upd': '2024-11-28'
-        },
-        {
-            'title': 'Cálculo Diferencial',
-            type:{'content': 'Subject'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Matemática" }, { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }, { name: 'Osorio' }
-            ],
-            'views': 14,
-            'votes-up': 2,
-            'latest-upd': '2024-11-28'
-        },
-        {
-            'title': 'Cálculo Diferencial',
-            type:{'content': 'Subject'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Matemática" }, { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }, { name: 'Osorio' }
-            ],
-            'views': 14,
-            'votes-up': 2,
-            'latest-upd': '2024-11-28'
-        },
-        {
-            'title': 'Cálculo Diferencial',
-            type:{'content': 'Subject'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Matemática" }, { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }, { name: 'Osorio' }
-            ],
-            'views': 14,
-            'votes-up': 2,
-            'latest-upd': '2024-11-28'
-        },
-        {
-            'title': 'Cálculo Diferencial',
-            type:{'content': 'Subject'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Matemática" }, { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }, { name: 'Osorio' }
-            ],
-            'views': 14,
-            'votes-up': 2,
-            'latest-upd': '2024-11-28'
-        },
-        
-    ]
+    
+    const [subjects, setSubjects] = useState<Content[]>([]);
+    const [resources, setResources] = useState<Content[]>([]);
 
-    const Resources: Content[]=[
-        {
-            'title': 'Guía de Latex',
-            type:{'content': 'Resources'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }
-            ],
-            'views': 402,
-            'votes-up': 32,
-            'latest-upd': '2024-11-28'
-        },
-        {
-            'title': 'Guía de Latex',
-            type:{'content': 'Resources'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }
-            ],
-            'views': 402,
-            'votes-up': 32,
-            'latest-upd': '2024-11-28'
-        },
-        {
-            'title': 'Guía de Latex',
-            type:{'content': 'Resources'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }
-            ],
-            'views': 402,
-            'votes-up': 32,
-            'latest-upd': '2024-11-28'
-        },
-        {
-            'title': 'Guía de Latex',
-            type:{'content': 'Resources'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }
-            ],
-            'views': 402,
-            'votes-up': 32,
-            'latest-upd': '2024-11-28'
-        },
-    ]
+    useEffect(() => {
+        axios.get("subjects.json")
+            .then((response) => setSubjects(response.data))
+            .catch((error) => console.error('Error fetching subjects:', error));
+    }, []);
+    useEffect(() => {
+        axios.get("resources.json")
+            .then((response) => setResources(response.data))
+            .catch((error) => console.error('Error fetching resources:', error));
+    }, []);
 
-    const Content: Content[] =[
-        ...Subjects,
-        ...Resources,
+    const Content: Content[] = [
+        ...subjects,
+        ...resources,
     ]
 
     return (
@@ -209,9 +82,12 @@ const SubjectsContent: FC = () => {
                             <SwiperSlide key={index} className="bg-gray-300 p-3">
                                 {/* left side */}
                                 <div className="space-y-1">
-                                    <h2 className="text-xl font-semibold">
-                                        {item.title}
-                                    </h2>
+                                    <Link to={ROUTES.SUBJECTS.ID}>
+                                        <h2 className="text-xl font-semibold">
+                                            {item.title}
+                                        </h2>
+                                    </Link>
+
                                     <div className="space-x-4">
                                         {item.tags.map((item: Tag) => (
                                             <span key={item.tag} className="py-0.5 px-2 bg-red-500 text-white text-xs" >{item.tag}</span>

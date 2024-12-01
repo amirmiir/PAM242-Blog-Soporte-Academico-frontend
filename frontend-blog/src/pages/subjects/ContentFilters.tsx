@@ -13,22 +13,24 @@ const especialidades: string[] = [
 
 const ContentFilters: FC = () => {
     return (
-        <div>
+        <div className="space-y-2 content-start">
+            <SearchBar searchBar={{placeholder: 'Buscar por nombre'}}/>
+
             <div className="flex text-center ">
                 <FaFilter />
                 <h2>Filtros</h2>
             </div>
-            <SearchBar />
+
             <div>
                 <div>
                     Especialidades
                 </div>
-                <SearchBar />
+                <SearchBar searchBar={{placeholder: 'Buscar especialidad'}}/>
                 {
                     especialidades.map((item: string, index: number) => (
-                        <div key={index} className="">
+                        <div key={index} className="flex flex-row items-center space-x-1">
                             <RiCheckboxBlankLine />
-                            <span>{item}</span>
+                            <span className="">{item}</span>
                         </div>
                     ))
                 }
