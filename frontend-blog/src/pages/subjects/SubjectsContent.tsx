@@ -8,7 +8,6 @@ import 'swiper/css/scrollbar';
 // import required modules
 import { Scrollbar, Mousewheel } from 'swiper/modules';
 import ContentFilters from './ContentFilters';
-import { ROUTES } from '../../shared/utils/routes';
 import { Link } from 'react-router-dom';
 
 import axios from 'axios'
@@ -90,7 +89,7 @@ const SubjectsContent: FC = () => {
                                 <div className="flex flex-col h-min bg-gray-300 p-1 mr-4 shadow-md rounded-s">
                                     {/* left side */}
                                     <div className="space-y-1 h-min p-1 w-3/4">
-                                        <Link to={ROUTES.SUBJECTS.ID}>
+                                        <Link to={item.route}>
                                             <h2 className="text-xl font-semibold">
                                                 {item.title}
                                             </h2>

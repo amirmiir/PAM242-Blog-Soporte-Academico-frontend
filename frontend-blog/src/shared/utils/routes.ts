@@ -1,9 +1,15 @@
 /**
  * Defining constant routes to specify them later and reduce misspells
  */
+
+import axios from "axios";
+import { useEffect } from "react";
+
+
+
 export const ROUTES = {
-    
-    LANDING:{
+
+    LANDING: {
         ROOT: '/',
         HOME: '/#home',
         ABOUT: '/#about',
@@ -17,12 +23,10 @@ export const ROUTES = {
 
     SUBJECTS: {
         ROOT: '/subjects',
-        ID: '/subjects/id',
     },
 
-    QUESTIONS:{
+    QUESTIONS: {
         ROOT: '/questions',
-        ID: '/questions/id',
         MAKEQUESTION: '/questions/make-a-question'
     },
 

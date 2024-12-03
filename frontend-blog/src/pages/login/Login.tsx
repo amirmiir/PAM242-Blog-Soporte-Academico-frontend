@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../shared/utils/routes';
 import bsalogo from '../../assets/bsa-logo.svg'
+import librosLogin from '../../assets/images/librosLogin.svg'
 import checkIcon from '../../assets/icons/checkIcon.png'
 import LoginForm from './LoginForm';
 
@@ -16,15 +17,15 @@ const Login: FC = () => {
         <div className="h-screen overflow-hidden flex flex-row justify-between items-center bg-gray-900">
 
             {/* Información */}
-            <div className=" w-1/4 ml-32 space-y-4 ">
+            <div className=" w-1/4 ml-32 space-y-4">
                 <Link to={ROUTES.LANDING} className="flex text-center items-center space-x-2">
                     <img src={bsalogo} alt="" className="pl-8 h-10" />
                     <h1 className="text-4xl text-gray-400">BSA </h1>
                 </Link>
 
-                <div className="flex flex-row justify-between border-l-2 pl-4 border-red-500 items-center h-auto text-white">
+                <div className="flex flex-col text justify-between items-center h-auto text-white">
                     {/* Información sobre la comunidad */}
-                    <div>
+                    <div className="border-l-2 border-red-500 pl-4">
                         <h2 className="text-xl">Sé parte de la comunidad de estudios de la Facultad de Ciencias</h2>
                         <ol>
                             {
@@ -36,7 +37,9 @@ const Login: FC = () => {
                                 ))
                             }
                         </ol>
+                        
                     </div>
+                    <img src={librosLogin} alt="libros decorativos" className="mt-8 h-40"/>
                 </div>
             </div>
 
