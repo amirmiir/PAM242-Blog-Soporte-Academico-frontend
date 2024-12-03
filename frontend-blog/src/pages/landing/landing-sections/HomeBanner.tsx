@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import PabCentralUNI from '../../../assets/images/PabCentralUNI.png';
 import FCUNI from '../../../assets/images/FCUNI.jpg'
 import FrenteFCUNI from '../../../assets/images/FrenteFCUNI.jpeg'
 import BiblioFCUNI from '../../../assets/images/BiblioFCUNI.jpg'

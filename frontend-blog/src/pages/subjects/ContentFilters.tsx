@@ -14,8 +14,6 @@ const especialidades: string[] = [
 const ContentFilters: FC = () => {
     return (
         <div className="space-y-2 content-start">
-            <SearchBar searchBar={{placeholder: 'Buscar por nombre'}}/>
-
             <div className="flex text-center ">
                 <FaFilter />
                 <h2>Filtros</h2>

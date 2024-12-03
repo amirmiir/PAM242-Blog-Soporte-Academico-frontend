@@ -3,10 +3,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 // import required modules
-import { Mousewheel, Pagination } from 'swiper/modules';
+import { Scrollbar, Mousewheel } from 'swiper/modules';
 import ContentFilters from './ContentFilters';
 import { ROUTES } from '../../shared/utils/routes';
 import { Link } from 'react-router-dom';
@@ -38,7 +38,7 @@ type ContentType = {
 }
 
 const SubjectsContent: FC = () => {
-    
+
     const [subjects, setSubjects] = useState<Content[]>([]);
     const [resources, setResources] = useState<Content[]>([]);
 
@@ -59,55 +59,71 @@ const SubjectsContent: FC = () => {
     ]
 
     return (
-        <div className="flex flex-row bg-gray-300 p-3 mb-24 md:mx-24 h-full ">
-            <div className="bg-white py-3 px-4 pr-8x  w-auto">
+        <div className="flex flex-row bg-gray-300 p-3 mb-24 md:mx-24 h-full">
+            <div className="bg-white py-3 px-4 pr-8x w-auto">
                 <ContentFilters />
             </div>
-            <div className="w-4/5 ml-6 p-4 bg-white h-full ">
+            <div className="w-4/5 ml-6 p-4 bg-white h-auto">
                 <div className="px-2 pb-4 space-x-12">
                     <button>CURSOS</button>
                     <button>RECURSOS</button>
                 </div>
                 <Swiper
                     direction={'vertical'}
-                    slidesPerView={4}
-                    spaceBetween={30}
                     mousewheel={true}
-
-                    modules={[Mousewheel]}
+                    slidesPerView={'auto'}
+                    spaceBetween={20}
+                    modules={[Scrollbar, Mousewheel]}
+                    scrollbar={{
+                        hide: false,
+                        draggable: true,
+                    }}
                     className="mySwiper bg-white h-[calc(100%-50px)]"
+
                 >
                     {
                         Content.map((item: Content, index: number) => (
-                            <SwiperSlide key={index} className="bg-gray-300 p-3">
-                                {/* left side */}
-                                <div className="space-y-1">
-                                    <Link to={ROUTES.SUBJECTS.ID}>
-                                        <h2 className="text-xl font-semibold">
-                                            {item.title}
-                                        </h2>
-                                    </Link>
+                            <SwiperSlide
+                                key={index}
+                                className=" flex flex-col w-max !h-min"
+                            >
+                                <div className="flex flex-col h-min bg-gray-300 p-1 mr-4 shadow-md rounded-s">
+                                    {/* left side */}
+                                    <div className="space-y-1 h-min p-1 w-3/4">
+                                        <Link to={ROUTES.SUBJECTS.ID}>
+                                            <h2 className="text-xl font-semibold">
+                                                {item.title}
+                                            </h2>
+                                        </Link>
 
-                                    <div className="space-x-4">
-                                        {item.tags.map((item: Tag) => (
-                                            <span key={item.tag} className="py-0.5 px-2 bg-red-500 text-white text-xs" >{item.tag}</span>
-                                        ))}
+                                        <div className=" p-1">
+                                            <div className=" flex flex-row">
+                                                {item.professors.map((item: Professor) => (
+                                                    <span key={item.name} className="text-xs text-black tracking-wider my-2 mr-6">{item.name}</span>
+                                                ))}
+                                            </div>
+
+                                            <div className="space-x-4 flex flex-row">
+                                                {item.tags.map((item: Tag) => (
+                                                    <span key={item.tag} className="py-0.5 px-2 bg-red-500 text-white font-thin tracking-wider text-xs">
+                                                        {item.tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+
+                                        </div>
                                     </div>
-                                    <div>
-                                        {item.professors.map((item: Professor) => (
-                                            <span key={item.name} className="text-xs">{item.name}</span>
-                                        ))}
-                                    </div>
+                                    {/* right side */}
+
                                 </div>
-                                {/* right side */}
-                                <div></div>
                             </SwiperSlide>
                         ))
                     }
                 </Swiper>
             </div>
         </div>
-    )
+    );
+
 }
 
 export default SubjectsContent

@@ -9,8 +9,8 @@ const SectionContact: FC = () => {
     const onSubmit = data => console.log(data);
 
     return (
-        <div className="pl-16">
-            <h2 className="text-2xl font-semibold">Contáctanos</h2>
+        <div className="w-1/2 mx-auto text-left pt-32">
+            <h2 className="lg:text-2xl font-semibold">Contáctanos</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 {/* register your input into the hook by invoking the "register" function */}
                 <input defaultValue="test" {...register("example")} />

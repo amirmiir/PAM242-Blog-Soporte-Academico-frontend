@@ -5,6 +5,11 @@ type FAQ = {
     answer: string
 }
 
+/**
+ * This section is currently unavailable due to lack of content,
+ * but is intended to be implemented in the future as a part of the footer.
+ * This change constitutes a decision based on a more actual design.
+ *  */
 const SectionFAQ: FC = () => {
 
     const FAQ: FAQ[] = [
