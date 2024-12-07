@@ -5,7 +5,10 @@
 import axios from "axios";
 import { useEffect } from "react";
 
-
+type SubjectRoute = {
+    ROUTE: string,
+    ID: string
+}
 
 export const ROUTES = {
 
@@ -23,15 +26,17 @@ export const ROUTES = {
 
     SUBJECTS: {
         ROOT: '/subjects',
-    },
+        {
 
+        }
+    },
     QUESTIONS: {
-        ROOT: '/questions',
-        MAKEQUESTION: '/questions/make-a-question'
+        ROOT: '/questions'
     },
-
 } as const;
 
 export const protectedRoutes = {
-
+    QUESTIONS:{
+        MAKEQUESTION: '/questions/make-a-question'
+    }
 }

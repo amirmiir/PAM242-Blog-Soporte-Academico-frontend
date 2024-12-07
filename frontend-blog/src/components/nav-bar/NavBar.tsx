@@ -20,7 +20,6 @@ const landingNavigation: navigationLabel[] = [
     { 'name': 'Inicio', to: ROUTES.LANDING.HOME },
     { 'name': 'Acerca de', to: ROUTES.LANDING.ABOUT },
     { 'name': 'Nosotros', to: ROUTES.LANDING.US },
-    { 'name': 'Preguntas Frecuentes', to: ROUTES.LANDING.FAQ },
     { 'name': 'Contáctanos', to: ROUTES.LANDING.CONTACT },
 ]
 
