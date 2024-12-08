@@ -13,48 +13,104 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 
 
+
+/**
+ * Definition of types for structured access.
+ */
 type Tag = {
     'tag': string,
 }
 
-type Professor = {
+type Credits = {
     'name': string,
 }
 
-type Content = {
-    'title': string,
+type ContentType = "subject" | "resource"
+
+type TContentInfo = {
+    'id': string,
     type: ContentType,
-    'route': string,
+    'title': string,
     tags: Tag[],
-    professors: Professor[],
+    credits: Credits[],
     'views': number,
     'votes-up': number,
     'latest-upd': string
 }
 
-type ContentType = {
-    'content': string,
+type TContentRoute = {
+    'id': string,
+    'route': string
 }
 
+type TContentCard = TContentInfo & TContentRoute;
+/**
+ * This is the main component to be rendered in the Subjects page, as it is
+ * Component Loading via axios a JSON to be displayed on
+ * the self-adjustable Swiper slides.
+ */
+
 const SubjectsContent: FC = () => {
+    /**
+     * Changes implemented:
+     * 
+     * - axios use for showing loading screen whilst loading all data from 
+     * json (database). This requires useState to decide what to show 
+     * depending on its value.
+     * 
+     * - added error handler for axios in case of failure to load all data.
+     * 
+     * - data will be displayed once it is not loading anymore and no error
+     * was found upon request.
+     * 
+     * - axios is used twice, first for routing, second for displaying routes
+     * along extra information
+     * 
+     * - axios all shall not be used for loading subjects and resources as in this
+     * case since we are trying to load both files independently so that if one 
+     * fails, it doesn't affect the other.
+     */
 
-    const [subjects, setSubjects] = useState<Content[]>([]);
-    const [resources, setResources] = useState<Content[]>([]);
+    const [subjectsInfo, setSubjectsInfo] = useState<TContentInfo[]>([]);
+    const [subjectsRoutes, setSubjectsRoutes] = useState<TContentRoute[]>([]);
+    const [resourcesInfo, setResourcesInfo] = useState<TContentInfo[]>([]);
+    const [resourcesRoutes, setResourcesRoutes] = useState<TContentRoute[]>([]);
+
+    const [loadingSubjectsInfo, setLoadingSubjectsInfo] = useState(true);
+    const [loadingResourcesInfo, setLoadingResourcesInfo] = useState(true);
+
+    const [errorSubjectsInfo, setErrorSubjectsInfo] = useState<string | null>(null);
+    const [errorResourcesInfo, setErrorResourcesInfo] = useState<string | null>(null);
 
     useEffect(() => {
-        axios.get("subjects.json")
-            .then((response) => setSubjects(response.data))
-            .catch((error) => console.error('Error fetching subjects:', error));
-    }, []);
-    useEffect(() => {
-        axios.get("resources.json")
-            .then((response) => setResources(response.data))
-            .catch((error) => console.error('Error fetching resources:', error));
+        setLoadingSubjectsInfo(true);
+        axios
+            .all([
+                axios.get('subjectsInfo.json'),
+                axios.get('subjectsRoutes.json')
+            ])
+            .then(axios.spread((responseSubjectsInfo, responseSubjectsRoutes) => {
+                setSubjectsInfo(responseSubjectsInfo.data);
+                setSubjectsRoutes(responseSubjectsRoutes.data)
+                setErrorSubjectsInfo(null);
+
+            }))
+            .catch((error) => {
+                setErrorSubjectsInfo('Failed to fetch subjectsCard');
+
+                console.error('One or more requestes failed', error)
+            })
+            .finally(() => {
+                setLoadingSubjectsInfo(false);
+
+            })
     }, []);
 
-    const Content: Content[] = [
-        ...subjects,
-        ...resources,
+    
+
+    const contentCards: TContent[] = [
+        ...subjectsCards,
+        ...resourcesCards,
     ]
 
     return (
@@ -66,7 +122,7 @@ const SubjectsContent: FC = () => {
                 <div className="px-2 pb-4 space-x-12">
                     <button>CURSOS</button>
                     <button>RECURSOS</button>
-                </div>
+                </div>{ }
                 <Swiper
                     direction={'vertical'}
                     mousewheel={true}
@@ -81,7 +137,7 @@ const SubjectsContent: FC = () => {
 
                 >
                     {
-                        Content.map((item: Content, index: number) => (
+                        content.map((item: TContent, index: number) => (
                             <SwiperSlide
                                 key={index}
                                 className=" flex flex-col w-max !h-min"
@@ -97,7 +153,7 @@ const SubjectsContent: FC = () => {
 
                                         <div className=" p-1">
                                             <div className=" flex flex-row">
-                                                {item.professors.map((item: Professor) => (
+                                                {item.credits.map((item: Credits) => (
                                                     <span key={item.name} className="text-xs text-black tracking-wider my-2 mr-6">{item.name}</span>
                                                 ))}
                                             </div>
@@ -125,4 +181,4 @@ const SubjectsContent: FC = () => {
 
 }
 
-export default SubjectsContent
+export default SubjectsContent;
