@@ -66,9 +66,11 @@ const SubjectsContent: FC = () => {
      * - axios is used twice, first for routing, second for displaying routes
      * along extra information
      * 
-     * - axios all shall not be used for loading subjects and resources as in this
+     * - axios all (deprecated) shall not be used for loading subjects and resources as in this
      * case since we are trying to load both files independently so that if one 
      * fails, it doesn't affect the other.
+     * 
+     * - Promise.all is used twice as each card is the union of information and routing data.
      */
 
     const [subjectsInfo, setSubjectsInfo] = useState<TContentInfo[]>([]);
@@ -82,36 +84,54 @@ const SubjectsContent: FC = () => {
     const [errorSubjectsInfo, setErrorSubjectsInfo] = useState<string | null>(null);
     const [errorResourcesInfo, setErrorResourcesInfo] = useState<string | null>(null);
 
+    /**
+     * Defining hooks to combine Routes and Info into a single array
+     */
+
     useEffect(() => {
         setLoadingSubjectsInfo(true);
-        axios
-            .all([
-                axios.get('subjectsInfo.json'),
-                axios.get('subjectsRoutes.json')
-            ])
-            .then(axios.spread((responseSubjectsInfo, responseSubjectsRoutes) => {
-                setSubjectsInfo(responseSubjectsInfo.data);
-                setSubjectsRoutes(responseSubjectsRoutes.data)
-                setErrorSubjectsInfo(null);
 
-            }))
+        Promise.all([
+            axios.get('subjectsInfo.json'),
+            axios.get('subjectsRoutes.json')
+        ])
+            .then(([responseSubjectsInfo, responseSubjectsRoutes]) => {
+                setSubjectsInfo(responseSubjectsInfo.data);
+                setSubjectsRoutes(responseSubjectsRoutes.data);
+                setErrorSubjectsInfo(null);
+            })
             .catch((error) => {
                 setErrorSubjectsInfo('Failed to fetch subjectsCard');
-
-                console.error('One or more requestes failed', error)
+                console.error('One or more requests failed', error);
             })
             .finally(() => {
                 setLoadingSubjectsInfo(false);
-
-            })
+            });
     }, []);
 
+
+    useEffect(() => {
+        setLoadingResourcesInfo(true);
+
+        Promise.all([
+            axios.get('resourcesInfo.json'),
+            axios.get('resourcesRoutes.json')
+        ])
+            .then(([responseResourcesInfo, responseResourcesRoutes]) => {
+                setResourcesInfo(responseResourcesInfo.data);
+                setResourcesRoutes(responseResourcesRoutes.data);
+                setErrorResourcesInfo(null);
+            })
+            .catch((error) => {
+                setErrorResourcesInfo('Failed to fetch resourcesCard');
+                console.error('One or more requests failed', error);
+            })
+            .finally(() => {
+                setLoadingResourcesInfo(false);
+            });
+    }, []);
     
 
-    const contentCards: TContent[] = [
-        ...subjectsCards,
-        ...resourcesCards,
-    ]
 
     return (
         <div className="flex flex-row bg-gray-300 p-3 mb-24 md:mx-24 h-full">

@@ -1,5 +1,9 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom'
+
 import { ROUTES } from '../shared/utils/routes'
+import axios from 'axios'
+import { useEffect } from 'react'
+
 import Landing from '../pages/landing/Landing';
 import NotFound from '../pages/not-found/NotFound';
 import Login from '../pages/login/Login';
@@ -43,11 +47,7 @@ const publicRoutes: RouteObject[] = [
     {
         path: ROUTES.SUBJECTS.ROOT,
         element: <Subjects />
-    },
-    {
-        path: ROUTES.SUBJECTS.ID,
-        element: <SubjectID />
-    },
+    }
 ]
 
 const routes: RouteObject[] =[

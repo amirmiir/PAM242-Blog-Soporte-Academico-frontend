@@ -2,15 +2,7 @@
  * Defining constant routes to specify them later and reduce misspells
  */
 
-import axios from "axios";
-import { useEffect } from "react";
-
-type SubjectRoute = {
-    ROUTE: string,
-    ID: string
-}
-
-export const ROUTES = {
+export const publicRoutes = {
 
     LANDING: {
         ROOT: '/',
@@ -26,9 +18,6 @@ export const ROUTES = {
 
     SUBJECTS: {
         ROOT: '/subjects',
-        {
-
-        }
     },
     QUESTIONS: {
         ROOT: '/questions'
@@ -36,7 +25,16 @@ export const ROUTES = {
 } as const;
 
 export const protectedRoutes = {
-    QUESTIONS:{
+    QUESTIONS: {
         MAKEQUESTION: '/questions/make-a-question'
     }
+}
+
+export const ROUTES = {
+    ...publicRoutes,
+    QUESTIONS: {
+        ...publicRoutes.QUESTIONS,
+        ...protectedRoutes.QUESTIONS,
+    },
+    ...protectedRoutes
 }
