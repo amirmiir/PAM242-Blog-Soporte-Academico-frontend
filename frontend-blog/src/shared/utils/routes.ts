@@ -32,9 +32,13 @@ export const protectedRoutes = {
 
 export const ROUTES = {
     ...publicRoutes,
+    ...protectedRoutes,
+    /**
+     * Matches must be merged after, as otherwise, would lead to
+     * routes being overwritten.
+     */
     QUESTIONS: {
         ...publicRoutes.QUESTIONS,
         ...protectedRoutes.QUESTIONS,
     },
-    ...protectedRoutes
 }

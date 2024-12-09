@@ -104,10 +104,20 @@ const SubjectsContent: FC = () => {
         setLoadingSubjectsInfo(true);
 
         Promise.all([
+            /**
+             * Correct routing, for this case, it is needed to use '/'
+             * as if done without it would lead to the improper load of
+             * data and would fetch index.html information.
+             * 
+             * Same for the axios.get on 'resources'
+             */
             axios.get('/subjectsInfo.json'),
             axios.get('/subjectsRoutes.json')
         ])
             .then(([responseSubjectsInfo, responseSubjectsRoutes]) => {
+                /**
+                 * showing if the data was fetched correctly
+                 */
                 console.log("Subjects Info Response:", responseSubjectsInfo);
                 console.log("Subjects Route Response:", responseSubjectsRoutes);
 
