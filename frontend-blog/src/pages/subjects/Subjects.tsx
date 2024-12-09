@@ -11,11 +11,12 @@ const Subjects: FC = () => {
             <div className="flex flex-col items-center py-8 space-y-4">
                 <h1 className="text-3xl font-semibold">Explora los cursos</h1>
                 <p className="text-xl">Busca cursos, materiales y fuentes de enseñanza</p>
-                <SearchBar searchBar={{placeholder: 'Buscar en BSA'}}/>
-
+                <SearchBar searchBar={{ placeholder: 'Buscar en BSA' }} />
             </div>
+
             <SubjectsContent />
-            <Footer/>
+            
+            <Footer />
         </div>
     )
 }

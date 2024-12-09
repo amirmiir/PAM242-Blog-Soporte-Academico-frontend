@@ -37,10 +37,6 @@ const publicRoutes: RouteObject[] = [
         element: <Questions />
     },
     {
-        path: ROUTES.QUESTIONS.ID,
-        element: <QuestionID />
-    },
-    {
         path: ROUTES.QUESTIONS.MAKEQUESTION,
         element: <MakeQuestion />
     },

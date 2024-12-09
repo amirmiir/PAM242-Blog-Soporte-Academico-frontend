@@ -1,4 +1,6 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios'
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -7,12 +9,11 @@ import 'swiper/css/scrollbar';
 
 // import required modules
 import { Scrollbar, Mousewheel } from 'swiper/modules';
-import ContentFilters from './ContentFilters';
-import { Link } from 'react-router-dom';
 
-import axios from 'axios'
+import SearchBar from '../../components/search-bar/SearchBar'
 
-
+import { RiCheckboxBlankLine } from "react-icons/ri";
+import { FaFilter } from "react-icons/fa";
 
 /**
  * Definition of types for structured access.
@@ -73,10 +74,21 @@ const SubjectsContent: FC = () => {
      * - Promise.all is used twice as each card is the union of information and routing data.
      */
 
+    const especialidades: string[] = [
+        'Matemática',
+        'Ciencia de la Computación',
+        'Física',
+        'Química',
+        'Ingeniería Física'
+    ]
+
     const [subjectsInfo, setSubjectsInfo] = useState<TContentInfo[]>([]);
     const [subjectsRoutes, setSubjectsRoutes] = useState<TContentRoute[]>([]);
     const [resourcesInfo, setResourcesInfo] = useState<TContentInfo[]>([]);
     const [resourcesRoutes, setResourcesRoutes] = useState<TContentRoute[]>([]);
+
+    const [subjectsCards, setSubjectsCards] = useState<TContentCard[]>([]);
+    const [resourcesCards, setResourcesCards] = useState<TContentCard[]>([]);
 
     const [loadingSubjectsInfo, setLoadingSubjectsInfo] = useState(true);
     const [loadingResourcesInfo, setLoadingResourcesInfo] = useState(true);
@@ -92,12 +104,32 @@ const SubjectsContent: FC = () => {
         setLoadingSubjectsInfo(true);
 
         Promise.all([
-            axios.get('subjectsInfo.json'),
-            axios.get('subjectsRoutes.json')
+            axios.get('/subjectsInfo.json'),
+            axios.get('/subjectsRoutes.json')
         ])
             .then(([responseSubjectsInfo, responseSubjectsRoutes]) => {
+                console.log("Subjects Info Response:", responseSubjectsInfo);
+                console.log("Subjects Route Response:", responseSubjectsRoutes);
+
                 setSubjectsInfo(responseSubjectsInfo.data);
                 setSubjectsRoutes(responseSubjectsRoutes.data);
+
+                /**
+                 * Union of routing and information to display in cards
+                 */
+                const combinedSubjects = responseSubjectsInfo.data.map((info: TContentInfo) => {
+                    /*  matching routes with current id */
+                    const route = responseSubjectsRoutes.data.find((r: TContentRoute) => r.id === info.id)
+
+                    return {
+                        ...info,
+                        ...route,
+                        /** failure case */
+                        route: route?.route || ''
+                    }
+                })
+
+                setSubjectsCards(combinedSubjects);
                 setErrorSubjectsInfo(null);
             })
             .catch((error) => {
@@ -114,12 +146,35 @@ const SubjectsContent: FC = () => {
         setLoadingResourcesInfo(true);
 
         Promise.all([
-            axios.get('resourcesInfo.json'),
-            axios.get('resourcesRoutes.json')
+            axios.get('/resourcesInfo.json'),
+            axios.get('/resourcesRoutes.json')
         ])
             .then(([responseResourcesInfo, responseResourcesRoutes]) => {
+
+                console.log("Resources Info Response:", responseResourcesInfo);
+                console.log("Resources Route Response:", responseResourcesRoutes);
+                
                 setResourcesInfo(responseResourcesInfo.data);
                 setResourcesRoutes(responseResourcesRoutes.data);
+
+                /**
+                 * Union of routing and information to display in cards
+                 */
+                const combinedResources = responseResourcesInfo.data.map((info: TContentInfo) => {
+                    /*  matching routes with current id */
+                    const route = responseResourcesRoutes.data.find((r: TContentRoute) => r.id === info.id)
+                    console.log(route?.route)
+                    return {
+                        ...info,
+                        ...route,
+                        /** failure case */
+                        route: route?.route || ''
+
+
+                    }
+                })
+
+                setResourcesCards(combinedResources)
                 setErrorResourcesInfo(null);
             })
             .catch((error) => {
@@ -130,13 +185,36 @@ const SubjectsContent: FC = () => {
                 setLoadingResourcesInfo(false);
             });
     }, []);
-    
 
+    const contentCards: TContentCard[] = [
+        ...subjectsCards,
+        ...resourcesCards
+    ];
 
     return (
         <div className="flex flex-row bg-gray-300 p-3 mb-24 md:mx-24 h-full">
             <div className="bg-white py-3 px-4 pr-8x w-auto">
-                <ContentFilters />
+                <div className="space-y-2 content-start">
+                    <div className="flex text-center ">
+                        <FaFilter />
+                        <h2>Filtros</h2>
+                    </div>
+
+                    <div>
+                        <div>
+                            Especialidades
+                        </div>
+                        <SearchBar searchBar={{ placeholder: 'Buscar especialidad' }} />
+                        {
+                            especialidades.map((item: string, index: number) => (
+                                <div key={index} className="flex flex-row items-center space-x-1">
+                                    <RiCheckboxBlankLine />
+                                    <span className="">{item}</span>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
             </div>
             <div className="w-4/5 ml-6 p-4 bg-white h-auto">
                 <div className="px-2 pb-4 space-x-12">
@@ -157,7 +235,7 @@ const SubjectsContent: FC = () => {
 
                 >
                     {
-                        content.map((item: TContent, index: number) => (
+                        contentCards.map((item: TContentCard, index: number) => (
                             <SwiperSlide
                                 key={index}
                                 className=" flex flex-col w-max !h-min"
