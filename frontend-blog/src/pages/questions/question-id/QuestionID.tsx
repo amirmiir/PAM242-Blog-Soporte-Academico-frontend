@@ -1,8 +1,15 @@
-import React from 'react'
+import { FC } from 'react'
 
-type Props = {}
 
-const QuestionsID = (props: Props) => {
+type TAnswer = {
+    'id-answer': string,
+    'id-author-answer': string,
+    'id-editor-answer': string[],
+    'votes-up': number,
+    'date': string
+}
+
+const QuestionsID = () => {
     return (
         <div>QuestionsID</div>
     )

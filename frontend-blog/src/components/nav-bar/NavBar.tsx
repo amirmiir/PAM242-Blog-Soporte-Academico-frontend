@@ -30,8 +30,8 @@ const NavBar: FC = () => {
     const isSmallScreen = useSmallScreenSize();
 
     return (
-        <header className="w-screen mx-auto border-b-2 border-gray-300 bg-gray-100 h-[8vh]">
-            <nav className="flex justify-between items-center h-full px-1">
+        <header className="w-full  px-6 mx-auto border-b-2 border-gray-300 bg-gray-100 h-[8vh]">
+            <nav className="flex justify-between items-center h-full">
                 {/* Izquierda */}
 
                 <div className="flex h-full items-center font-semibold text-center">

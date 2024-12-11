@@ -1,8 +1,6 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom'
 
 import { ROUTES } from '../shared/utils/routes'
-import axios from 'axios'
-import { useEffect } from 'react'
 
 import Landing from '../pages/landing/Landing';
 import NotFound from '../pages/not-found/NotFound';

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -8,182 +8,51 @@ import 'swiper/css/pagination';
 // import required modules
 import { Mousewheel, Pagination } from 'swiper/modules';
 import ContentFilters from './ContentFilters';
-import { ROUTES } from '../../shared/utils/routes';
 
 type Tag = {
     'tag': string,
-}
+};
 
-type Professor = {
-    'name': string,
-}
+type TUser = {
+    'id-user': string,
+    'username': string
+};
 
-type Content = {
+type TQuestionRoute ={
+    'id-question': string,
+    'route': string
+};
+
+type TQuestionInfo = {
+    'id-question': string,
+    author: TUser,
+    editors: TUser[],
     'title': string,
-    type: ContentType,
-    'route': string,
+    'description': string,
+    'url-images': string[],
     tags: Tag[],
-    professors: Professor[],
+    'is-answered': boolean,
+    'num-answers': number,
     'views': number,
     'votes-up': number,
-    'latest-upd': string
-}
+    'date': string
+};
 
-type ContentType ={
-    'content': string,
-}
+type TQuestionCard = TQuestionInfo & TQuestionRoute;
 
 const SubjectsContent: FC = () => {
-    const Subjects: Content[] = [
-        {
-            'title': 'Cálculo Diferencial',
-            type:{'content': 'Subject'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Matemática" }, { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }, { name: 'Osorio' }
-            ],
-            'views': 14,
-            'votes-up': 2,
-            'latest-upd': '2024-11-28'
-        },{
-            'title': 'Cálculo Diferencial',
-            type:{'content': 'Subject'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Matemática" }, { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }, { name: 'Osorio' }
-            ],
-            'views': 14,
-            'votes-up': 2,
-            'latest-upd': '2024-11-28'
-        },
-        {
-            'title': 'Cálculo Diferencial',
-            type:{'content': 'Subject'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Matemática" }, { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }, { name: 'Osorio' }
-            ],
-            'views': 14,
-            'votes-up': 2,
-            'latest-upd': '2024-11-28'
-        },
-        {
-            'title': 'Cálculo Diferencial',
-            type:{'content': 'Subject'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Matemática" }, { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }, { name: 'Osorio' }
-            ],
-            'views': 14,
-            'votes-up': 2,
-            'latest-upd': '2024-11-28'
-        },
-        {
-            'title': 'Cálculo Diferencial',
-            type:{'content': 'Subject'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Matemática" }, { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }, { name: 'Osorio' }
-            ],
-            'views': 14,
-            'votes-up': 2,
-            'latest-upd': '2024-11-28'
-        },
-        {
-            'title': 'Cálculo Diferencial',
-            type:{'content': 'Subject'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Matemática" }, { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }, { name: 'Osorio' }
-            ],
-            'views': 14,
-            'votes-up': 2,
-            'latest-upd': '2024-11-28'
-        },
-        
-    ]
 
-    const Resources: Content[]=[
-        {
-            'title': 'Guía de Latex',
-            type:{'content': 'Resources'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }
-            ],
-            'views': 402,
-            'votes-up': 32,
-            'latest-upd': '2024-11-28'
-        },
-        {
-            'title': 'Guía de Latex',
-            type:{'content': 'Resources'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }
-            ],
-            'views': 402,
-            'votes-up': 32,
-            'latest-upd': '2024-11-28'
-        },
-        {
-            'title': 'Guía de Latex',
-            type:{'content': 'Resources'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }
-            ],
-            'views': 402,
-            'votes-up': 32,
-            'latest-upd': '2024-11-28'
-        },
-        {
-            'title': 'Guía de Latex',
-            type:{'content': 'Resources'},
-            'route': ROUTES.SUBJECTS.ID,
-            tags: [
-                { tag: "Generales" }
-            ],
-            professors: [
-                { name: 'Bazán' }
-            ],
-            'views': 402,
-            'votes-up': 32,
-            'latest-upd': '2024-11-28'
-        },
-    ]
+    const [questionCards, setQuestionCards] = useState<TQuestionCard[]>([]);
+    const [loadingQuestionCards, setLoadingQuestionCards] = useState<boolean>(true);
+    const [errorQuestionCards, setErrorQuestionCards] = useState<string | null>(null);
 
-    const Content: Content[] =[
-        ...Subjects,
-        ...Resources,
-    ]
+    useEffect(() => {
+
+        Promise.all([
+            axios.get('/subjects')
+        ])
+
+    });
 
     return (
         <div className="flex flex-row bg-gray-300 p-3 mb-24 md:mx-24 h-full ">

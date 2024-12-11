@@ -9,7 +9,7 @@ const SectionContact: FC = () => {
     const onSubmit = data => console.log(data);
 
     return (
-        <div className="w-1/2 mx-auto text-left pt-32">
+        <div className="w-1/2 mx-auto text-left">
             <h2 className="lg:text-2xl font-semibold">Contáctanos</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 {/* register your input into the hook by invoking the "register" function */}
