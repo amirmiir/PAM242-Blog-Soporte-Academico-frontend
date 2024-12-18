@@ -1,79 +1,16 @@
 [
     {
-        "id": "fc-BMA01",
-        "title": "Cálculo Diferencial",
+        "id": "exams-bank",
+        "title": "Banco de Exámenes",
         "type": "resource",
         "tags": [
+            { "tag": "GENERALES" },
             { "tag": "MATEMÁTICA" },
-            { "tag": "GENERALES" }
+            { "tag": "FÍSICA" },
+            { "tag": "COMPUTACIÓN" }
         ],
         "credits": [
-            { "name": "Carlos Bazán" },
-            { "name": "Jaime Osorio" }
-        ],
-        "views": 14,
-        "votes-up": 2,
-        "latest-upd": "2024-11-18"
-    },
-    {
-        "id": "fc-BMA02",
-        "title": "Cálculo Integral",
-        "type": "resource",
-        "tags": [
-            { "tag": "MATEMÁTICA" },
-            { "tag": "GENERALES" }
-        ],
-        "credits": [
-            { "name": "Carlos Bazán" },
-            { "name": "Jaime Osorio" }
-        ],
-        "views": 14,
-        "votes-up": 2,
-        "latest-upd": "2024-11-18"
-    },
-    {
-        "id": "fc-BMA03",
-        "title": "Cálculo Diferencial e Integral Avanzado",
-        "type": "resource",
-        "tags": [
-            { "tag": "MATEMÁTICA" },
-            { "tag": "GENERALES" }
-        ],
-        "credits": [
-            { "name": "Carlos Bazán" },
-            { "name": "Jaime Osorio" }
-        ],
-        "views": 14,
-        "votes-up": 2,
-        "latest-upd": "2024-11-18"
-    },
-    {
-        "id": "fc-BFI01",
-        "title": "Física 1",
-        "type": "resource",
-        "tags": [
-            { "tag": "MATEMÁTICA" },
-            { "tag": "GENERALES" }
-        ],
-        "credits": [
-            { "name": "Carlos Bazán" },
-            { "name": "Jaime Osorio" }
-        ],
-        "views": 14,
-        "votes-up": 2,
-        "latest-upd": "2024-11-18"
-    },
-    {
-        "id": "fc-BIC01",
-        "title": "Introducción a la Computación",
-        "type": "resource",
-        "tags": [
-            { "tag": "MATEMÁTICA" },
-            { "tag": "GENERALES" }
-        ],
-        "credits": [
-            { "name": "Carlos Bazán" },
-            { "name": "Jaime Osorio" }
+            { "name": "BSA" }
         ],
         "views": 14,
         "votes-up": 2,

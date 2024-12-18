@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -45,13 +45,17 @@ type TContentRoute = {
 }
 
 type TContentCard = TContentInfo & TContentRoute;
+
+type SubjectsContentProps = {
+    search?: string;
+};
 /**
  * This is the main component to be rendered in the Subjects page, as it is
  * Component Loading via axios a JSON to be displayed on
  * the self-adjustable Swiper slides.
  */
 
-const SubjectsContent: FC = () => {
+const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
     /**
      * Changes implemented:
      * 
@@ -81,6 +85,11 @@ const SubjectsContent: FC = () => {
         'Química',
         'Ingeniería Física'
     ]
+
+    const categories: string[] = ['TODO', 'MATERIAS', 'RECURSOS']
+
+    const [selectedCategory, setSelectedCategory] = useState<string>('TODO');
+    const [filteredContentCards, setFilteredContentCards] = useState<TContentCard[]>([]);
 
     const [subjectsInfo, setSubjectsInfo] = useState<TContentInfo[]>([]);
     const [subjectsRoutes, setSubjectsRoutes] = useState<TContentRoute[]>([]);
@@ -163,7 +172,7 @@ const SubjectsContent: FC = () => {
 
                 console.log("Resources Info Response:", responseResourcesInfo);
                 console.log("Resources Route Response:", responseResourcesRoutes);
-                
+
                 setResourcesInfo(responseResourcesInfo.data);
                 setResourcesRoutes(responseResourcesRoutes.data);
 
@@ -196,10 +205,47 @@ const SubjectsContent: FC = () => {
             });
     }, []);
 
-    const contentCards: TContentCard[] = [
-        ...subjectsCards,
-        ...resourcesCards
-    ];
+    const contentCards: TContentCard[] = useMemo(() => {
+        return [...subjectsCards, ...resourcesCards];
+    }, [subjectsCards, resourcesCards]);
+
+    /** 
+     * Filtering content based on subjects, resources button
+     * Filtering content based on prop 'search' obtained from SearchBar component.
+     * Its purpose is to first remove all diacritics, so regardless of punctuation,
+     * it still generates a match and displays it on screen correctly.
+     * It also shows coincidences that are inside a word, via 'string.include'
+     * */
+    useEffect(() => {
+        /* \p{Diacritic} */
+        const removeDiacritics = (str: string) =>
+            str.normalize('NFD').replace(/\p{Diacritic}/gu, '');
+
+        let filteredCards = contentCards;
+
+        if (selectedCategory !== 'TODO') {
+            filteredCards = filteredCards.filter((category) =>
+                selectedCategory === 'MATERIAS'
+                    ? category.type === 'subject'
+                    : category.type === 'resource'
+            );
+        }
+
+        if (search.trim()) {
+            const normalizedSearch = removeDiacritics(search.toLowerCase());
+
+            /** Searching for every coincidence in each of the visible properties of each card */
+            filteredCards = filteredCards.filter(
+                (card) =>
+                    removeDiacritics(card.title.toLowerCase()).includes(normalizedSearch) ||
+                    card.tags.some((tag) => removeDiacritics(tag.tag.toLowerCase()).includes(normalizedSearch)) ||
+                    card.credits.some((credit) => removeDiacritics(credit.name.toLowerCase()).includes(normalizedSearch))
+            );
+        }
+
+        setFilteredContentCards(filteredCards);
+
+    }, [selectedCategory, search, contentCards]);
 
     return (
         <div className="flex flex-row bg-gray-300 p-3 mb-24 md:mx-24 h-full">
@@ -228,8 +274,18 @@ const SubjectsContent: FC = () => {
             </div>
             <div className="w-4/5 ml-6 p-4 bg-white h-auto">
                 <div className="px-2 pb-4 space-x-12">
-                    <button>CURSOS</button>
-                    <button>RECURSOS</button>
+                    {
+                        categories.map((category: string, index: number) => (
+                            <button key={index}
+                                onClick={() => setSelectedCategory(category)}
+                                className={`px-4 py-2 rounded-md ${selectedCategory === category
+                                    ? 'bg-red-500 text-white'
+                                    : 'bg-gray-200'
+                                    }`}>
+                                {category}
+                            </button>
+                        ))
+                    }
                 </div>{ }
                 <Swiper
                     direction={'vertical'}
@@ -245,7 +301,7 @@ const SubjectsContent: FC = () => {
 
                 >
                     {
-                        contentCards.map((item: TContentCard, index: number) => (
+                        filteredContentCards.map((item: TContentCard, index: number) => (
                             <SwiperSlide
                                 key={index}
                                 className=" flex flex-col w-max !h-min"

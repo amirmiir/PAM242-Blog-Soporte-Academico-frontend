@@ -1,22 +1,6 @@
 [
     {
-        "id": "fc-BMA01",
-        "route": "/subjects/fc-BMA01"
-    },
-    {
-        "id": "fc-BMA02",
-        "route": "/subjects/fc-BMA02"
-    },
-    {
-        "id": "fc-BMA03",
-        "route": "/subjects/fc-BMA03"
-    },
-    {
-        "id": "fc-BFI01",
-        "route": "/subjects/fc-BFI01"
-    },
-    {
-        "id": "fc-BIC01",
-        "route": "/subjects/fc-BIC01"
+        "id": "exams-bank",
+        "route": "/subjects/exams-bank"
     }
 ]
