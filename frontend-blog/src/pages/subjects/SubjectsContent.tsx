@@ -12,7 +12,7 @@ import { Scrollbar, Mousewheel } from 'swiper/modules';
 
 import SearchBar from '../../components/search-bar/SearchBar'
 
-import { RiCheckboxBlankLine } from "react-icons/ri";
+import { RiCheckboxBlankFill, RiCheckboxBlankLine } from "react-icons/ri";
 import { FaFilter } from "react-icons/fa";
 
 /**
@@ -79,15 +79,16 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
      */
 
     const especialidades: string[] = [
-        'Matemática',
-        'Ciencia de la Computación',
-        'Física',
-        'Química',
-        'Ingeniería Física'
-    ]
+        'MATEMÁTICA',
+        'CIENCIA DE LA COMPUTACIÓN',
+        'FÍSICA',
+        'QUÍMICA',
+        'INGENIERÍA FÍSICA'
+    ];
 
     const categories: string[] = ['TODO', 'MATERIAS', 'RECURSOS']
 
+    const [selectedFiltros, setSelectedFiltros] = useState<string[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>('TODO');
     const [filteredContentCards, setFilteredContentCards] = useState<TContentCard[]>([]);
 
@@ -104,6 +105,18 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
 
     const [errorSubjectsInfo, setErrorSubjectsInfo] = useState<string | null>(null);
     const [errorResourcesInfo, setErrorResourcesInfo] = useState<string | null>(null);
+
+    /** 
+     * Handler for  Filter buttons pressed
+     */
+    const handleFiltrosClick = (filtro: string): void => {
+        setSelectedFiltros((prev) =>
+            prev.includes(filtro)
+                ? prev.filter((item) => item !== filtro)
+                : [...prev, filtro]
+        );
+    }
+
 
     /**
      * Defining hooks to combine Routes and Info into a single array
@@ -212,6 +225,7 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
     /** 
      * Filtering content based on subjects, resources button
      * Filtering content based on prop 'search' obtained from SearchBar component.
+     * FIltering content based on filter buttons
      * Its purpose is to first remove all diacritics, so regardless of punctuation,
      * it still generates a match and displays it on screen correctly.
      * It also shows coincidences that are inside a word, via 'string.include'
@@ -243,12 +257,24 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
             );
         }
 
+        if (selectedFiltros.length > 0) {
+            filteredCards = filteredCards.filter((item) =>
+                item.tags.some((tag) =>
+                    selectedFiltros.some((filtro) =>
+                        filtro.toLowerCase() === tag.tag.toLowerCase()
+                    )
+                )
+            );
+        }
+        
+
         setFilteredContentCards(filteredCards);
 
-    }, [selectedCategory, search, contentCards]);
+    }, [selectedCategory, selectedFiltros, search, contentCards]);
 
     return (
         <div className="flex flex-row bg-gray-300 p-3 mb-24 md:mx-24 h-full">
+            {/* Filters for content */}
             <div className="bg-white py-3 px-4 pr-8x w-auto">
                 <div className="space-y-2 content-start">
                     <div className="flex text-center ">
@@ -256,22 +282,34 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
                         <h2>Filtros</h2>
                     </div>
 
-                    <div>
-                        <div>
-                            Especialidades
-                        </div>
-                        <SearchBar searchBar={{ placeholder: 'Buscar especialidad' }} />
+                    <div className="">
+                        
+                        <SearchBar searchBar={{ placeholder: 'Buscar filtro' }} />
+                        <span className="font-bold tracking-wide">Especialidades</span>
                         {
-                            especialidades.map((item: string, index: number) => (
-                                <div key={index} className="flex flex-row items-center space-x-1">
-                                    <RiCheckboxBlankLine />
-                                    <span className="">{item}</span>
-                                </div>
+                            especialidades.map((filtro: string, index: number) => (
+                                <button
+                                    key={index}
+                                    className={`flex flex-row items-center space-x-1 `}
+                                    onClick={() => handleFiltrosClick(filtro)}
+                                >
+                                    {
+                                        (!selectedFiltros.includes(filtro) && <RiCheckboxBlankLine />)
+                                    }
+                                    {
+                                        (selectedFiltros.includes(filtro) && <RiCheckboxBlankFill className="text-red-500"/>)
+                                    }
+                                    
+                                    <span className={`${selectedFiltros.includes(filtro) ? 'font-semibold' : ''
+                                        }`}>{filtro}</span>
+                                </button>
                             ))
                         }
                     </div>
                 </div>
             </div>
+
+            {/* Main content */}
             <div className="w-4/5 ml-6 p-4 bg-white h-auto">
                 <div className="px-2 pb-4 space-x-12">
                     {
