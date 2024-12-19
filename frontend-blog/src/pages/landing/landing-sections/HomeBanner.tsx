@@ -31,7 +31,7 @@ const HomeBanner: FC = () => {
             "bg-img": FCUNI
         },
         {
-            "header": "Comparte información con los demás",
+            "header": "Comparte información con otros estudiantes",
             "description": "",
             "bg-img": FrenteFCUNI
         },
@@ -83,16 +83,17 @@ const HomeBanner: FC = () => {
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
                         }} key={index} className="flex flex-col justify-left text-left mb-4 p-10 content-center">
+                            {/* Through this div we can set a darker color to the background image */}
                             <div className="absolute inset-0 bg-black opacity-50"></div>
 
-                            <div className="relative w-2/5 pl-24">
-                                <div className="title text-4xl font-extrabold" data-swiper-parallax="-300">
+                            <div className="relative w-3/5 pl-24">
+                                <div className="title text-2xl md:text-5xl font-extrabold" data-swiper-parallax="-300">
                                     {item.header}
                                 </div>
                                 <div className="text mb-6" data-swiper-parallax="-100">
                                     <p>{item.description}</p>
                                 </div>
-                                <Link to={ROUTES.LOGIN} className="rounded-lg border border-red-500 bg-red-500 py-2 px-4 text-white hover:bg-red-600">Unirme</Link>
+                                <Link to={ROUTES.LOGIN} className="rounded-lg border tracking-wide font-semibold border-red-500 bg-red-500 py-2 md:py-2 px-3 md:px-4 text-md md:text-lg text-white hover:bg-red-600">Unirme</Link>
                             </div>
 
                         </SwiperSlide>

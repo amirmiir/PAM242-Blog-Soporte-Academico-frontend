@@ -30,7 +30,7 @@ const NavBar: FC = () => {
     const isSmallScreen = useSmallScreenSize();
 
     return (
-        <header className="w-full  px-6 mx-auto border-b-2 border-gray-300 bg-gray-100 h-[8vh]">
+        <header className="w-full  px-6 mx-auto border-b-2 border-gray-300 bg-gray-100 h-[10vh]">
             <nav className="flex justify-between items-center h-full">
                 {/* Izquierda */}
 
@@ -86,7 +86,7 @@ const NavBar: FC = () => {
 
                 {/* Derecha */}
                 {!isSmallScreen && (
-                    <div className="flex items-center space-x-4 pl-5 h-full relative">
+                    <div className="flex items-center space-x-2 pl-5 h-full relativex|">
                         <div className="border-l border-gray-300 h-full absolute left-0"></div>
                         <Link
                             to={ROUTES.LOGIN}

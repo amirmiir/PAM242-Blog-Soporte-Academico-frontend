@@ -2,8 +2,8 @@ import { FC } from 'react'
 import { IoSearchOutline } from 'react-icons/io5'
 
 type SearchBar = {
-    'placeholder': string
-    onSearchChange?: (text:string) => void
+    'placeholder': string,
+    onSearchChange?: (text: string) => void
 }
 
 type SearchBarProps = {
@@ -16,14 +16,14 @@ const SearchBar: FC<SearchBarProps> = ({ searchBar }) => {
     */
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (searchBar.onSearchChange) {
-            searchBar.onSearchChange(event.target.value); 
+            searchBar.onSearchChange(event.target.value);
         }
     };
 
     return (
-        <div className="relative sm:w-72 w-40 space-x-2">
+        <div className="relative sm:w-72 w-40 space-x-2 hover:shadow-lg bg-[#EAEAEA] rounded-md">
             <IoSearchOutline className="absolute inline-block left-3 inset-y-2" />
-            <input type="text" placeholder={searchBar.placeholder} className="bg-[#EAEAEA] w-full py-1 md:px-8 px-6 rounder-md focus:outline-none" onChange={handleInputChange}/>
+            <input type="text" placeholder={searchBar.placeholder} className="bg-[#EAEAEA] w-full py-1 md:px-8 px-6 rounded-md focus:outline-none" onChange={handleInputChange} />
         </div>
     )
 }

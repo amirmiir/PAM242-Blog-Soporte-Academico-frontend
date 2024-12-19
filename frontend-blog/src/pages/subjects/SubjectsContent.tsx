@@ -14,6 +14,7 @@ import SearchBar from '../../components/search-bar/SearchBar'
 
 import { RiCheckboxBlankFill, RiCheckboxBlankLine } from "react-icons/ri";
 import { FaFilter } from "react-icons/fa";
+import useSmallScreenSize from '../../hooks/small-screen-size/useSmallScreen';
 
 /**
  * Definition of types for structured access.
@@ -107,6 +108,13 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
 
     const [errorSubjectsInfo, setErrorSubjectsInfo] = useState<string | null>(null);
     const [errorResourcesInfo, setErrorResourcesInfo] = useState<string | null>(null);
+
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const isSmallScreen = useSmallScreenSize();
+
+    const toggleFilter = () => {
+        setIsFilterOpen(!isFilterOpen);
+    };
 
     /** 
      * Handler for  Filter buttons pressed
@@ -278,58 +286,92 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
     );
 
     return (
-        <div className="flex flex-row bg-gray-300 p-3 mb-24 md:mx-24 h-full">
+        <div className="flex flex-col md:flex-row items-center md:items-start bg-gray-300 space-y-3 md:space-y-0 p-3 mb-24 md:mx-24">
             {/* Filters for content */}
-            <div className="bg-white py-3 px-4 pr-8x w-auto">
-                <div className="space-y-2 content-start">
-                    <div className="flex text-center ">
-                        <FaFilter />
-                        <h2>Filtros</h2>
+            <div className="bg-white py-3 px-4 pr-8x w-4/5 md:w-auto">
+                <div className="space-y-2 content-start ">
+
+
+                    {/* Responsive Filter Button */}
+                    <div className="md:hidden flex flex-col ">
+                        <button
+                            onClick={toggleFilter}
+                            className="flex flex-row items-center px-4 py-2 bg-gray-200 rounded-md shadow-md text-gray-800"
+                        >
+                            <FaFilter className="mr-2" />
+                            <span className="font-semibold tracking-wide">Mostrar filtros</span>
+                        </button>
                     </div>
 
-                    <div className="">
+                    {isFilterOpen && (
+                        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center sm:hidden">
+                            <div className="bg-white p-4 rounded-lg w-3/4 sm:w-1/2 md:w-1/3">
+                                <div className="flex justify-between items-center mb-4">
+                                    <h2 className="text-xl font-bold">Filtros</h2>
+                                    <button onClick={toggleFilter} className="text-red-500 text-lg">
+                                        x
+                                    </button>
+                                </div>
+                                <SearchBar searchBar={{ placeholder: 'Buscar filtro', onSearchChange: (text) => setSearchFiltro(text) }} />
+                                <span className="font-bold tracking-wide">Especialidades</span>
+                                {filteredEspecialidades.map((filtro: string, index: number) => (
+                                    <button
+                                        key={index}
+                                        className={`flex flex-row items-center space-x-1 `}
+                                        onClick={() => handleFiltrosClick(filtro)}
+                                    >
+                                        {!selectedFiltros.includes(filtro) && <RiCheckboxBlankLine />}
+                                        {selectedFiltros.includes(filtro) && <RiCheckboxBlankFill className="text-red-500" />}
+                                        <span className={`${selectedFiltros.includes(filtro) ? 'font-semibold' : ''}`}>{filtro}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
 
+                    {/* Filter Content (Visible on regular screens) */}
+
+                    <div className="hidden sm:block space-y-2">
+                        <div className="flex items-center space-x-2">
+                            <FaFilter />
+                            <h2 className="tracking-wide font-bold">FILTROS</h2>
+                        </div>
                         <SearchBar searchBar={{ placeholder: 'Buscar filtro', onSearchChange: (text) => setSearchFiltro(text) }} />
-                        <span className="font-bold tracking-wide">Especialidades</span>
-                        {
-                            filteredEspecialidades.map((filtro: string, index: number) => (
+
+                        <div>
+                            <span className="font-bold tracking-wide">Especialidades</span>
+                            {filteredEspecialidades.map((filtro: string, index: number) => (
                                 <button
                                     key={index}
                                     className={`flex flex-row items-center space-x-1 `}
                                     onClick={() => handleFiltrosClick(filtro)}
                                 >
-                                    {
-                                        (!selectedFiltros.includes(filtro) && <RiCheckboxBlankLine />)
-                                    }
-                                    {
-                                        (selectedFiltros.includes(filtro) && <RiCheckboxBlankFill className="text-red-500" />)
-                                    }
-
-                                    <span className={`${selectedFiltros.includes(filtro) ? 'font-semibold' : ''
-                                        }`}>{filtro}</span>
+                                    {!selectedFiltros.includes(filtro) && <RiCheckboxBlankLine />}
+                                    {selectedFiltros.includes(filtro) && <RiCheckboxBlankFill className="text-red-500" />}
+                                    <span className={`${selectedFiltros.includes(filtro) ? 'font-semibold' : ''}`}>{filtro}</span>
                                 </button>
-                            ))
-                        }
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
 
             {/* Main content */}
-            <div className="w-4/5 ml-6 p-4 bg-white h-auto">
-                <div className="px-2 pb-4 space-x-12">
+            <div className="w-4/5 md:ml-6 p-4 pb-10 bg-white space-y-4">
+                <div className="flex flex-col md:flex-row px-2 space-x-0 md:space-x-12 -translate-x-2 space-y-2 md:space-y-0">
                     {
                         categories.map((category: string, index: number) => (
                             <button key={index}
                                 onClick={() => setSelectedCategory(category)}
-                                className={`px-4 py-2 rounded-md ${selectedCategory === category
-                                    ? 'bg-red-500 text-white'
+                                className={`w-full md:w-auto px-4 py-2 rounded-md shadow-md tracking-wide ${selectedCategory === category
+                                    ? 'bg-red-500 text-white font-semibold'
                                     : 'bg-gray-200'
                                     }`}>
                                 {category}
                             </button>
                         ))
                     }
-                </div>{ }
+                </div>
                 <Swiper
                     direction={'vertical'}
                     mousewheel={true}
@@ -340,7 +382,7 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
                         hide: false,
                         draggable: true,
                     }}
-                    className="mySwiper bg-white h-[calc(100%-50px)]"
+                    className="mySwiper bg-white !h-[calc(100%-50px)] max-h-[500px] md:max-h-none "
 
                 >
                     {
@@ -365,7 +407,7 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
                                                 ))}
                                             </div>
 
-                                            <div className="space-x-4 flex flex-row">
+                                            <div className="space-x-4 flex flex-row items-center">
                                                 {item.tags.map((item: Tag) => (
                                                     <span key={item.tag} className="py-0.5 px-2 bg-red-500 text-white font-thin tracking-wider text-xs">
                                                         {item.tag}
@@ -376,6 +418,7 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
                                         </div>
                                     </div>
                                     {/* right side */}
+                                    {/* place is currently empty but is meant to be reserved for a describing image */}
 
                                 </div>
                             </SwiperSlide>
