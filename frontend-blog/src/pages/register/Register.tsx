@@ -49,7 +49,7 @@ const Register: FC = () => {
 
                 <RegisterForm />
 
-                <p className="align-baseline font-medium mt-4 text-sm">¿No tienes una cuenta? Por favor, <Link to={ROUTES.REGISTER} className="text-blue-500 hover:text-blue-700">Regístrate</Link></p>
+                <p className="align-baseline font-medium mt-4 text-sm">¿Ya tienes una cuenta? Por favor, <Link to={ROUTES.LOGIN} className="text-blue-500 hover:text-blue-700">Login</Link></p>
 
 
 
