@@ -13,10 +13,10 @@ const Register: FC = () => {
     ];
 
     return (
-        <div className="h-screen overflow-hidden flex flex-row justify-between items-center bg-gray-900">
+        <div className="h-screen overflow-hidden flex flex-col md:flex-row space-y-6 md:space-y-0 justify-between items-center px-6 md:px-24 py-16 bg-gray-900">
 
             {/* Información */}
-            <div className=" w-1/4 ml-32 space-y-4 ">
+            <div className="w-3/4 md:w-1/4 space-y-4 ">
                 <Link to={ROUTES.LANDING.ROOT} className="flex text-center items-center space-x-2">
                     <img src={bsalogo} alt="" className="pl-8 h-10" />
                     <h1 className="text-4xl text-gray-400">BSA </h1>
@@ -42,7 +42,7 @@ const Register: FC = () => {
 
 
             {/* Formato de inicio de sesión */}
-            <div className="w-full max-w-sm mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div className="w-full md:max-w-sm mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <h2 className="text-xl font-semibold mb-4 text-center">
                     Registro de usuario
                 </h2>
