@@ -79,11 +79,11 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
      */
 
     const especialidades: string[] = [
-        'MATEMÁTICA',
-        'CIENCIA DE LA COMPUTACIÓN',
-        'FÍSICA',
-        'QUÍMICA',
-        'INGENIERÍA FÍSICA'
+        'Matemática',
+        'Computer Science',
+        'Física',
+        'Química',
+        'Ing Física'
     ];
 
     const categories: string[] = ['TODO', 'MATERIAS', 'RECURSOS']

@@ -4,12 +4,20 @@
         "title": "Cálculo Diferencial",
         "type": "subject",
         "tags": [
-            { "tag": "MATEMÁTICA" },
-            { "tag": "GENERALES" }
+            {
+                "tag": "GENERALES"
+            },
+            {
+                "tag": "MATEMÁTICA"
+            }
         ],
         "credits": [
-            { "name": "Carlos Bazán" },
-            { "name": "Jaime Osorio" }
+            {
+                "name": "Carlos Bazán"
+            },
+            {
+                "name": "Jaime Osorio"
+            }
         ],
         "views": 14,
         "votes-up": 2,
@@ -20,12 +28,20 @@
         "title": "Cálculo Integral",
         "type": "subject",
         "tags": [
-            { "tag": "MATEMÁTICA" },
-            { "tag": "GENERALES" }
+            {
+                "tag": "GENERALES"
+            },
+            {
+                "tag": "MATEMÁTICA"
+            }
         ],
         "credits": [
-            { "name": "Carlos Bazán" },
-            { "name": "Jaime Osorio" }
+            {
+                "name": "Carlos Bazán"
+            },
+            {
+                "name": "Jaime Osorio"
+            }
         ],
         "views": 14,
         "votes-up": 2,
@@ -36,12 +52,20 @@
         "title": "Cálculo Diferencial e Integral Avanzado",
         "type": "subject",
         "tags": [
-            { "tag": "MATEMÁTICA" },
-            { "tag": "GENERALES" }
+            {
+                "tag": "GENERALES"
+            },
+            {
+                "tag": "MATEMÁTICA"
+            }
         ],
         "credits": [
-            { "name": "Carlos Bazán" },
-            { "name": "Jaime Osorio" }
+            {
+                "name": "Carlos Bazán"
+            },
+            {
+                "name": "Jaime Osorio"
+            }
         ],
         "views": 14,
         "votes-up": 2,
@@ -52,12 +76,20 @@
         "title": "Física 1",
         "type": "subject",
         "tags": [
-            { "tag": "MATEMÁTICA" },
-            { "tag": "GENERALES" }
+            {
+                "tag": "GENERALES"
+            },
+            {
+                "tag": "FÍSICA"
+            }
         ],
         "credits": [
-            { "name": "Carlos Bazán" },
-            { "name": "Jaime Osorio" }
+            {
+                "name": "Carlos Bazán"
+            },
+            {
+                "name": "Jaime Osorio"
+            }
         ],
         "views": 14,
         "votes-up": 2,
@@ -68,12 +100,20 @@
         "title": "Introducción a la Computación",
         "type": "subject",
         "tags": [
-            { "tag": "MATEMÁTICA" },
-            { "tag": "GENERALES" }
+            {
+                "tag": "GENERALES"
+            },
+            {
+                "tag": "COMPUTER SCIENCE"
+            }
         ],
         "credits": [
-            { "name": "Carlos Bazán" },
-            { "name": "Jaime Osorio" }
+            {
+                "name": "Carlos Bazán"
+            },
+            {
+                "name": "Jaime Osorio"
+            }
         ],
         "views": 14,
         "votes-up": 2,
