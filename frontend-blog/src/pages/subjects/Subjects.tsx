@@ -8,8 +8,9 @@ const Subjects: FC = () => {
     /** hook to look after changes on searchbar */
     const [searchText, setSearchText] = useState<string>(''); // State to track input
 
+    /** event handler for subjectsContent to filter according to what's written on SearchBar */
     const handleSearchChange = (text: string) => {
-        setSearchText(text); // Update state on input change
+        setSearchText(text); 
     };
 
     return (

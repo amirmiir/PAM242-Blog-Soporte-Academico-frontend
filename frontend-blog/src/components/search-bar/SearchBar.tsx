@@ -11,9 +11,12 @@ type SearchBarProps = {
 }
 
 const SearchBar: FC<SearchBarProps> = ({ searchBar }) => {
+    /**Event handler for a change on what is written in the search bar 
+     * This notifies the parent a change was made
+    */
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (searchBar.onSearchChange) {
-            searchBar.onSearchChange(event.target.value); // Notify parent of input change
+            searchBar.onSearchChange(event.target.value); 
         }
     };
 
