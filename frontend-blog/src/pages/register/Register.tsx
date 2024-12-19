@@ -30,7 +30,7 @@ const Register: FC = () => {
                             {
                                 features.map((items: string, index: number) => (
                                     <li key={index} className="flex flex-row text-left items-start space-x-1 ">
-                                        <img src={checkIcon} className="h-4 translate-y-0.5"/>
+                                        <img src={checkIcon} className="h-4 translate-y-0.5" />
                                         <span className="text-sm">{items}</span>
                                     </li>
                                 ))
@@ -49,7 +49,7 @@ const Register: FC = () => {
 
                 <RegisterForm />
 
-                <p className="align-baseline font-medium mt-4 text-sm">¿Ya tienes una cuenta? Por favor, <Link to={ROUTES.LOGIN} className="text-blue-500 hover:text-blue-700">Login</Link></p>
+                <p className="align-baseline font-medium mt-4 text-sm">¿Ya tienes una cuenta? Por favor, <Link to={ROUTES.LOGIN} className="text-red-500 hover:text-red-700">Login</Link></p>
 
 
 

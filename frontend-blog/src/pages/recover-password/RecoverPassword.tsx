@@ -41,15 +41,15 @@ const RecoverPassword: FC = () => {
             </div>
 
 
-            {/* Formato de inicio de sesión */}
+            {/* Formato  */}
             <div className="w-full max-w-sm mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <h2 className="text-xl font-semibold mb-4 text-center">
-                    Registro de usuario
+                    Recuperar contraseña
                 </h2>
 
                 <RecoverForm />
 
-                <p className="align-baseline font-medium mt-4 text-sm">¿No tienes una cuenta? Por favor, <Link to={ROUTES.REGISTER} className="text-blue-500 hover:text-blue-700">Regístrate</Link></p>
+                <p className="align-baseline font-medium mt-4 text-sm">¿No tienes una cuenta? Por favor, <Link to={ROUTES.REGISTER} className="text-red-500 hover:text-red-700">Regístrate</Link></p>
 
 
 

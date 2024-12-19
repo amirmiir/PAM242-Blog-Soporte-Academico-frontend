@@ -1,7 +1,8 @@
 import React, { FC, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FaGoogle } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../shared/utils/routes';
 
 type Inputs = {
     email: string;
@@ -10,7 +11,7 @@ type Inputs = {
 
 const LoginForm: FC = () => {
     const [message, setMessage] = useState<string>('');
-   
+
     const {
         register,
         handleSubmit,
@@ -22,7 +23,7 @@ const LoginForm: FC = () => {
 
         try {
             const response = await fetch('http://localhost:4000/users/login', {  //fetch es una API para realizar solicitudes HTTP
-            
+
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -31,16 +32,16 @@ const LoginForm: FC = () => {
             });
 
             if (!response.ok) {
-                const error = await response.json(); 
-                throw new Error(error.message||'Login failed');
+                const error = await response.json();
+                throw new Error(error.message || 'Login failed');
             }
 
             //Se logeo exitosamente
             const responseData = await response.json();
             console.log(responseData);
-            
+
             setMessage('Login successful!');
-            
+
         } catch (error: any) {
             setMessage(error.message || 'An error occurred');
         }
@@ -100,13 +101,19 @@ const LoginForm: FC = () => {
                 {message && (
                     <p className="text-red-500 text-xs italic mb-3">{message}</p>
                 )}
-                <div>
+                <div className="flex flex-col md:flex-row space-x-2">
                     <button
                         type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded focus:outline-none"
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 w-2/5 px-8 rounded focus:outline-none"
                     >
-                        Login
+                        Log in
                     </button>
+                    <Link to={ROUTES.RECOVERPASSWORD}
+                        className="bg-white text-center border-red-500 border hover:bg-gray-100 text-red-500 font-bold w-3/5 py-2 px-2 rounded focus:outline-none text-sm"
+                    >
+                        Recuperar contraseña
+                    </Link>
+
                 </div>
             </form>
 
@@ -114,9 +121,9 @@ const LoginForm: FC = () => {
             <div className="mt-4">
                 <button
                     onClick={handleGoogleSignIn}
-                    className="w-full flex flex-wrap gap-1 items-center justify-center bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
+                    className="w-full flex flex-wrap gap-1 items-center justify-center bg-secondary hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
                 >
-                        <FaGoogle className="mr-2" />
+                    <FaGoogle className="mr-2" />
                     Iniciar Sesión con Google
                 </button>
             </div>

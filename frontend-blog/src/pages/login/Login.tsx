@@ -18,7 +18,7 @@ const Login: FC = () => {
 
             {/* Información */}
             <div className=" w-1/4 ml-32 space-y-4">
-                <Link to={ROUTES.LANDING} className="flex text-center items-center space-x-2">
+                <Link to={ROUTES.LANDING.ROOT} className="flex text-center items-center space-x-2">
                     <img src={bsalogo} alt="" className="pl-8 h-10" />
                     <h1 className="text-4xl text-gray-400">BSA </h1>
                 </Link>
@@ -31,15 +31,15 @@ const Login: FC = () => {
                             {
                                 features.map((items: string, index: number) => (
                                     <li key={index} className="flex flex-row text-left items-start space-x-1 ">
-                                        <img src={checkIcon} className="h-4 translate-y-0.5"/>
+                                        <img src={checkIcon} className="h-4 translate-y-0.5" />
                                         <span className="text-sm">{items}</span>
                                     </li>
                                 ))
                             }
                         </ol>
-                        
+
                     </div>
-                    <img src={librosLogin} alt="libros decorativos" className="mt-8 h-40"/>
+                    <img src={librosLogin} alt="libros decorativos" className="mt-8 h-40" />
                 </div>
             </div>
 
@@ -52,7 +52,7 @@ const Login: FC = () => {
 
                 <LoginForm />
 
-                <p className="align-baseline font-medium mt-4 text-sm">¿No tienes una cuenta? Por favor, <Link to={ROUTES.REGISTER} className="text-blue-500 hover:text-blue-700">Regístrate</Link></p>
+                <p className="align-baseline font-medium mt-4 text-sm">¿No tienes una cuenta? Por favor, <Link to={ROUTES.REGISTER} className="text-red-500 hover:text-red-700">Regístrate</Link></p>
 
 
 
