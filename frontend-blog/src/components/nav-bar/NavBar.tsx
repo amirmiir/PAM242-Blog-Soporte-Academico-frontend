@@ -86,7 +86,7 @@ const NavBar: FC = () => {
 
                 {/* Derecha */}
                 {!isSmallScreen && (
-                    <div className="flex items-center space-x-2 pl-5 h-full relativex|">
+                    <div className="flex items-center space-x-2 pl-5 h-full relative">
                         <div className="border-l border-gray-300 h-full absolute left-0"></div>
                         <Link
                             to={ROUTES.LOGIN}
