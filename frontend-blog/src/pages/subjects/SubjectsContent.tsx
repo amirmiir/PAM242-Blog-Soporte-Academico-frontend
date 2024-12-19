@@ -88,8 +88,10 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
 
     const categories: string[] = ['TODO', 'MATERIAS', 'RECURSOS']
 
+    const [searchFiltro, setSearchFiltro] = useState<string>('');
     const [selectedFiltros, setSelectedFiltros] = useState<string[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>('TODO');
+
     const [filteredContentCards, setFilteredContentCards] = useState<TContentCard[]>([]);
 
     const [subjectsInfo, setSubjectsInfo] = useState<TContentInfo[]>([]);
@@ -116,7 +118,6 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
                 : [...prev, filtro]
         );
     }
-
 
     /**
      * Defining hooks to combine Routes and Info into a single array
@@ -266,11 +267,15 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
                 )
             );
         }
-        
+
 
         setFilteredContentCards(filteredCards);
 
     }, [selectedCategory, selectedFiltros, search, contentCards]);
+
+    const filteredEspecialidades = especialidades.filter((filtro) =>
+        filtro.toLowerCase().includes(searchFiltro.toLowerCase())
+    );
 
     return (
         <div className="flex flex-row bg-gray-300 p-3 mb-24 md:mx-24 h-full">
@@ -283,11 +288,11 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
                     </div>
 
                     <div className="">
-                        
-                        <SearchBar searchBar={{ placeholder: 'Buscar filtro' }} />
+
+                        <SearchBar searchBar={{ placeholder: 'Buscar filtro', onSearchChange: (text) => setSearchFiltro(text) }} />
                         <span className="font-bold tracking-wide">Especialidades</span>
                         {
-                            especialidades.map((filtro: string, index: number) => (
+                            filteredEspecialidades.map((filtro: string, index: number) => (
                                 <button
                                     key={index}
                                     className={`flex flex-row items-center space-x-1 `}
@@ -297,9 +302,9 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
                                         (!selectedFiltros.includes(filtro) && <RiCheckboxBlankLine />)
                                     }
                                     {
-                                        (selectedFiltros.includes(filtro) && <RiCheckboxBlankFill className="text-red-500"/>)
+                                        (selectedFiltros.includes(filtro) && <RiCheckboxBlankFill className="text-red-500" />)
                                     }
-                                    
+
                                     <span className={`${selectedFiltros.includes(filtro) ? 'font-semibold' : ''
                                         }`}>{filtro}</span>
                                 </button>
