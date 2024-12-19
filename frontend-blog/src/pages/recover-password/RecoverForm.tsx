@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
-type Props = {}
+type Inputs = {
+    email: string;
+    newpassword: string;
+    newpassword2: string;
+};
 
-const RecoverForm = (props: Props) => {
+type Props = {};
+
+const RecoverForm: React.FC<Props> = () => {
     const [message, setMessage] = useState<string>('');
-   
+    const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
+
     const {
         register,
         handleSubmit,
@@ -15,8 +23,7 @@ const RecoverForm = (props: Props) => {
         console.log('Form Data:', formData);
 
         try {
-            const response = await fetch('http://localhost:4000/users/login', {  //fetch es una API para realizar solicitudes HTTP
-            
+            const response = await fetch('http://localhost:4000/users/changePassword', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,27 +32,19 @@ const RecoverForm = (props: Props) => {
             });
 
             if (!response.ok) {
-                const error = await response.json(); 
-                throw new Error(error.message||'Login failed');
+                const error = await response.json();
+                throw new Error(error.message || 'ChangePassword failed');
             }
 
-            //Se logeo exitosamente
             const responseData = await response.json();
             console.log(responseData);
-            
-            setMessage('Login successful!');
-            
+
+            setMessage('¡Contraseña actualizada exitosamente!');
+            setIsSuccess(true);
         } catch (error: any) {
             setMessage(error.message || 'An error occurred');
+            setIsSuccess(false);
         }
-    };
-
-    const handleGoogleSignIn = () => {
-
-        window.location.href = 'http://localhost:4000/users/authGoogle';
-        //¿Por que no fetch? La autenticacion por Google se basa en un redireccionamiento hacia la pagina de logeo de Google. No es una API con req-res
-
-        console.log('Google Sign-In not implemented yet.');
     };
 
     return (
@@ -59,7 +58,7 @@ const RecoverForm = (props: Props) => {
                         Email
                     </label>
                     <input
-                        {...register('email', { required: true })}
+                        {...register('email', { required: 'Email is required.' })}
                         type="email"
                         id="email"
                         placeholder="Email Address"
@@ -67,55 +66,71 @@ const RecoverForm = (props: Props) => {
                     />
                     {errors.email && (
                         <p className="text-red-500 text-xs italic">
-                            Email is required.
+                            {errors.email.message}
                         </p>
                     )}
                 </div>
                 <div className="mb-4">
                     <label
                         className="block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor="password"
+                        htmlFor="newpassword"
                     >
-                        Contraseña
+                        Nueva Contraseña
                     </label>
                     <input
-                        {...register('password', { required: true })}
+                        {...register('newpassword', { required: 'Password is required.' })}
                         type="password"
-                        id="password"
+                        id="newpassword"
                         placeholder="Password"
                         className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow"
                     />
-                    {errors.password && (
+                    {errors.newpassword && (
                         <p className="text-red-500 text-xs italic">
-                            Password is required.
+                            {errors.newpassword.message}
+                        </p>
+                    )}
+                </div>
+                <div className="mb-4">
+                    <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="newpassword2"
+                    >
+                        Repetir Contraseña
+                    </label>
+                    <input
+                        {...register('newpassword2', { required: 'Repeat password is required.' })}
+                        type="password"
+                        id="newpassword2"
+                        placeholder="Repeat Password"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow"
+                    />
+                    {errors.newpassword2 && (
+                        <p className="text-red-500 text-xs italic">
+                            {errors.newpassword2.message}
                         </p>
                     )}
                 </div>
                 {message && (
-                    <p className="text-red-500 text-xs italic mb-3">{message}</p>
+                    <p
+                        className={`text-xs italic mb-3 ${
+                            isSuccess ? 'text-green-500' : 'text-red-500'
+                        }`}
+                    >
+                        {message}
+                    </p>
                 )}
+
                 <div>
                     <button
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded focus:outline-none"
                     >
-                        Login
+                        Change Password
                     </button>
                 </div>
             </form>
-
-            {/* google sign in */}
-            <div className="mt-4">
-                <button
-                    onClick={handleGoogleSignIn}
-                    className="w-full flex flex-wrap gap-1 items-center justify-center bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
-                >
-                        <FaGoogle className="mr-2" />
-                    Iniciar Sesión con Google
-                </button>
-            </div>
         </div>
     );
-}
+};
 
-export default RecoverForm
+export default RecoverForm;
