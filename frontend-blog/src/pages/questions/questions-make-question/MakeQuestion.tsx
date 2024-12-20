@@ -5,7 +5,7 @@ import QuestionForm from './QuestionForm'
 
 /**
  * Given that we chose a similar platform to stackExchange, we will be using
- * MathJax for rendering our LaTex documentation.
+ * Better-React-MathJax for rendering our LaTex documentation.
  */
 const MakeQuestion: FC = () => {
 

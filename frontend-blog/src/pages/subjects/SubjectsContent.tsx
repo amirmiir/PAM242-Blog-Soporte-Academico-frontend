@@ -89,8 +89,8 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
 
     const categories: string[] = ['TODO', 'MATERIAS', 'RECURSOS']
 
-    const [searchFiltro, setSearchFiltro] = useState<string>('');
-    const [selectedFiltros, setSelectedFiltros] = useState<string[]>([]);
+    const [searchFilter, setSearchFilter] = useState<string>('');
+    const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>('TODO');
 
     const [filteredContentCards, setFilteredContentCards] = useState<TContentCard[]>([]);
@@ -119,11 +119,11 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
     /** 
      * Handler for  Filter buttons pressed
      */
-    const handleFiltrosClick = (filtro: string): void => {
-        setSelectedFiltros((prev) =>
-            prev.includes(filtro)
-                ? prev.filter((item) => item !== filtro)
-                : [...prev, filtro]
+    const handleTagsClick = (filter: string): void => {
+        setSelectedFilters((prev) =>
+            prev.includes(filter)
+                ? prev.filter((item) => item !== filter)
+                : [...prev, filter]
         );
     }
 
@@ -266,11 +266,11 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
             );
         }
 
-        if (selectedFiltros.length > 0) {
+        if (selectedFilters.length > 0) {
             filteredCards = filteredCards.filter((item) =>
                 item.tags.some((tag) =>
-                    selectedFiltros.some((filtro) =>
-                        filtro.toLowerCase() === tag.tag.toLowerCase()
+                    selectedFilters.some((filter) =>
+                        filter.toLowerCase() === tag.tag.toLowerCase()
                     )
                 )
             );
@@ -279,10 +279,10 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
 
         setFilteredContentCards(filteredCards);
 
-    }, [selectedCategory, selectedFiltros, search, contentCards]);
+    }, [selectedCategory, selectedFilters, search, contentCards]);
 
-    const filteredEspecialidades = especialidades.filter((filtro) =>
-        filtro.toLowerCase().includes(searchFiltro.toLowerCase())
+    const filteredEspecialidades = especialidades.filter((filter) =>
+        filter.toLowerCase().includes(searchFilter.toLowerCase())
     );
 
     return (
@@ -312,17 +312,17 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
                                         x
                                     </button>
                                 </div>
-                                <SearchBar searchBar={{ placeholder: 'Buscar filtro', onSearchChange: (text) => setSearchFiltro(text) }} />
+                                <SearchBar searchBar={{ placeholder: 'Buscar filtro', onSearchChange: (text) => setSearchFilter(text) }} />
                                 <span className="font-bold tracking-wide">Especialidades</span>
                                 {filteredEspecialidades.map((filtro: string, index: number) => (
                                     <button
                                         key={index}
                                         className={`flex flex-row items-center space-x-1 `}
-                                        onClick={() => handleFiltrosClick(filtro)}
+                                        onClick={() => handleTagsClick(filtro)}
                                     >
-                                        {!selectedFiltros.includes(filtro) && <RiCheckboxBlankLine />}
-                                        {selectedFiltros.includes(filtro) && <RiCheckboxBlankFill className="text-red-500" />}
-                                        <span className={`${selectedFiltros.includes(filtro) ? 'font-semibold' : ''}`}>{filtro}</span>
+                                        {!selectedFilters.includes(filtro) && <RiCheckboxBlankLine />}
+                                        {selectedFilters.includes(filtro) && <RiCheckboxBlankFill className="text-red-500" />}
+                                        <span className={`${selectedFilters.includes(filtro) ? 'font-semibold' : ''}`}>{filtro}</span>
                                     </button>
                                 ))}
                             </div>
@@ -336,7 +336,7 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
                             <FaFilter />
                             <h2 className="tracking-wide font-bold">FILTROS</h2>
                         </div>
-                        <SearchBar searchBar={{ placeholder: 'Buscar filtro', onSearchChange: (text) => setSearchFiltro(text) }} />
+                        <SearchBar searchBar={{ placeholder: 'Buscar filtro', onSearchChange: (text) => setSearchFilter(text) }} />
 
                         <div>
                             <span className="font-bold tracking-wide">Especialidades</span>
@@ -344,11 +344,11 @@ const SubjectsContent: FC<SubjectsContentProps> = ({ search = '' }) => {
                                 <button
                                     key={index}
                                     className={`flex flex-row items-center space-x-1 `}
-                                    onClick={() => handleFiltrosClick(filtro)}
+                                    onClick={() => handleTagsClick(filtro)}
                                 >
-                                    {!selectedFiltros.includes(filtro) && <RiCheckboxBlankLine />}
-                                    {selectedFiltros.includes(filtro) && <RiCheckboxBlankFill className="text-red-500" />}
-                                    <span className={`${selectedFiltros.includes(filtro) ? 'font-semibold' : ''}`}>{filtro}</span>
+                                    {!selectedFilters.includes(filtro) && <RiCheckboxBlankLine />}
+                                    {selectedFilters.includes(filtro) && <RiCheckboxBlankFill className="text-red-500" />}
+                                    <span className={`${selectedFilters.includes(filtro) ? 'font-semibold' : ''}`}>{filtro}</span>
                                 </button>
                             ))}
                         </div>
