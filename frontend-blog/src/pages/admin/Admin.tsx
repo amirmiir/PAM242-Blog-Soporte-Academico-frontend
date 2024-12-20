@@ -1,6 +1,5 @@
 import { FC, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 
 type Inputs = {
     email: string;

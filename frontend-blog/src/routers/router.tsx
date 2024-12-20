@@ -46,6 +46,14 @@ const publicRoutes: RouteObject[] = [
     {
         path: ROUTES.ADMIN,
         element: <Admin />
+    },
+    { //to be erased or left for further testing
+        path: '/subjects/id-test',
+        element: <SubjectID id="test-id"/>
+    }, 
+    { //to be erased or left for further testing
+        path: '/questions/id-test',
+        element: <QuestionID id="test-id"/>
     }
 ]
 

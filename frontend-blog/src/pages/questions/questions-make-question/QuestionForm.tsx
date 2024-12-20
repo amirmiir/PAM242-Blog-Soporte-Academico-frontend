@@ -11,6 +11,7 @@ type Inputs = {
 
 const QuestionForm: FC = () => {
     const [message, setMessage] = useState<string>('');
+
     const [title, setTitle] = useState<string>('');
     const [body, setBody] = useState<string>('');
     const debouncedTitle = useDebounce(title, 500);

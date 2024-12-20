@@ -9,7 +9,11 @@ type TAnswer = {
     'date': string
 }
 
-const QuestionsID = () => {
+type QuestionIDProps = {
+    'id': string
+}
+
+const QuestionsID: FC<QuestionIDProps> = ({ id }) => {
     return (
         <div>QuestionsID</div>
     )
