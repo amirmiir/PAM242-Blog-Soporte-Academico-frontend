@@ -13,7 +13,7 @@ const MakeQuestion: FC = () => {
      * this is a user-logged only accessible page
     */
     return (
-        <div>
+        <div className="space-y-4" >
             <NavBar />
             <div className="flex flex-col space-y-6 w-5/6 mx-auto my-8 items-start p-4 md:px-8 bg-gray-200">
                 <h1 className="text-xl md:text-3xl font-bold tracking-wide">Haz una pregunta pública</h1>

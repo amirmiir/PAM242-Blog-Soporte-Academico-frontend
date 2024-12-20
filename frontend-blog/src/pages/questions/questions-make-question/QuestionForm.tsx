@@ -59,7 +59,7 @@ const QuestionForm: FC = () => {
                 <div className="mb-4">
                     <label
                         className="block text-gray-700 text-sm font-bold"
-                        htmlFor="email"
+                        htmlFor="text"
                     >
                         Título
                     </label>

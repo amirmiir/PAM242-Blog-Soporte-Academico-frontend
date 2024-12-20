@@ -1,11 +1,16 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa'
 import { ROUTES } from '../../shared/utils/routes'
 import bsalogo from '../../assets/bsa-logo.svg'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 type navigationLabel = {
     name: string,
     to: string
+}
+
+type Inputs = {
+    email: string
 }
 
 const landingNavigation: navigationLabel[] = [
@@ -18,8 +23,47 @@ const landingNavigation: navigationLabel[] = [
 
 
 const Footer: FC = () => {
+    const [message, setMessage] = useState<string>('');
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<Inputs>();
+
+    const onSubmit: SubmitHandler<Inputs> = async (formData) => {
+        console.log('Form Data:', formData);
+
+
+        try {
+            //to-fix: next line with proper routing for correct working
+            const response = await fetch('http://localhost:4000/users/login', {  //fetch es una API para realizar solicitudes HTTP
+
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.message || 'Request failed');
+            }
+
+            //Se logeo exitosamente
+            const responseData = await response.json();
+            console.log(responseData);
+
+            setMessage('Request sent successfully!');
+
+        } catch (error: any) {
+            setMessage(error.message || 'An error occurred');
+        }
+    };
+
     return (
-        <footer className="bg-secondary text-white py-10 px-4">
+        <footer className="bg-secondary text-white py-10 px-4 mt-4">
             {/* Top Section */}
             <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
                 {/* Left Side - Logo and Nav */}
@@ -39,24 +83,42 @@ const Footer: FC = () => {
 
                 {/* Right Side - Newsletter */}
                 <div className="md:w-1/2 w-full">
-                    <p className="mb-4">
-                        Suscríbete a nuestro boletín para las últimas actualizaciones y noticias.
-                    </p>
-                    <div className="flex">
-                        <input
-                            type="email"
-                            placeholder="Ingresa tu email"
-                            className="w-full px-4 py-2 rounded-l-md text-black"
-                        />
-                        <button className="bg-red-500 px-6 py-2 rounded-r-md hover:bg-red-600">
+
+                    <form onSubmit={handleSubmit(onSubmit)} id="login-form" className="flex flex-row items-center">
+                        <div>
+                            <label
+                                className="block text-white text-sm font-bold"
+                                htmlFor="email"
+                            >
+                                Suscríbete a nuestro boletín para las últimas actualizaciones y noticias.
+                            </label>
+                            <input
+                                {...register('email', { required: true })}
+                                type="email"
+                                id="email"
+                                placeholder="Ingresa tu Email"
+                                className="shadow appearance-none border rounded-l w-full py-2 px-3 leading-tight focus:outline-none focus:shadow"
+                            />
+                            {errors.email && (
+                                <p className="text-red-500 text-xs italic">
+                                    Email is required.
+                                </p>
+                            )}
+                        </div>
+
+                        <button
+                            type="submit"
+                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-8 rounded focus:outline-none w-auto translate-y-2.5"
+                        >
                             Subscribe
                         </button>
-                    </div>
+
+                    </form>
                 </div>
             </div>
 
             {/* Bottom Section */}
-            <div className="container mx-auto flex flex-col md:flex-row justify-between items-center mt-10 border-t border-gray-700 pt-6">
+            <div className="container mx-auto flex flex-col md:flex-row justify-between items-center mt-10 border-t border-white pt-6">
                 {/* Left Side - Privacy Links */}
                 <ul className="flex gap-6 mb-4 md:mb-0">
                     <li><a href="#privacy" className="hover:text-primary">Privacy Policy</a></li>
