@@ -22,6 +22,7 @@ export const publicRoutes = {
     QUESTIONS: {
         ROOT: '/questions'
     },
+    ADMIN: '/admin',
 } as const;
 
 export const protectedRoutes = {

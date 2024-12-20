@@ -12,6 +12,7 @@ import MakeQuestion from '../pages/questions/questions-make-question/MakeQuestio
 import Subjects from '../pages/subjects/Subjects';
 import SubjectID from '../pages/subjects/subject-id/SubjectID';
 import RecoverPassword from '../pages/recover-password/RecoverPassword';
+import Admin from '../pages/admin/Admin';
 
 const publicRoutes: RouteObject[] = [
     {
@@ -41,6 +42,10 @@ const publicRoutes: RouteObject[] = [
     {
         path: ROUTES.SUBJECTS.ROOT,
         element: <Subjects />
+    },
+    {
+        path: ROUTES.ADMIN,
+        element: <Admin />
     }
 ]
 
