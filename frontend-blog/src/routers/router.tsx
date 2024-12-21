@@ -1,9 +1,8 @@
-import { createBrowserRouter, RouteObject } from 'react-router-dom'
+import { RouteObject } from 'react-router-dom'
 
 import { ROUTES } from '../shared/utils/routes'
 
 import Landing from '../pages/landing/Landing';
-import NotFound from '../pages/not-found/NotFound';
 import Login from '../pages/login/Login';
 import Register from '../pages/register/Register';
 import Questions from '../pages/questions/Questions';
@@ -67,12 +66,4 @@ const publicRoutes: RouteObject[] = [
     }
 ]
 
-const routes: RouteObject[] = [
-    ...publicRoutes,
-    {
-        path: '*',
-        element: <NotFound />
-    }
-]
-const router = createBrowserRouter(routes);
-export default router
+export default publicRoutes;
