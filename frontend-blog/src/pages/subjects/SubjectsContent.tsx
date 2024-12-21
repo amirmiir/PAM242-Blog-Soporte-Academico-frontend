@@ -29,15 +29,14 @@ type Credits = {
 type ContentType = "subject" | "resource"
 
 type TContentInfo = {
-    'id': string,
-    type: ContentType,
-    'title': string,
-    tags: Tag[],
-    credits: Credits[],
-    'views': number,
-    'votes-up': number,
-    'latest-upd': string
-}
+    id: number; // Matches "id" column
+    name: string; // Matches "name" column
+    teacher: string; // Matches "teacher" column
+    tags: string[]; // Assuming the "tags" JSONB is an array of strings
+    description: string; // Matches "description" column
+    created_at: string; // Matches "created_at" column
+    updated_at: string; // Matches "updated_at" column
+};
 
 type TContentRoute = {
     'id': string,
@@ -102,54 +101,49 @@ const SubjectsContent: FC = () => {
 
     useEffect(() => {
         setLoadingSubjectsInfo(true);
-
-        Promise.all([
-            /**
-             * Correct routing, for this case, it is needed to use '/'
-             * as if done without it would lead to the improper load of
-             * data and would fetch index.html information.
-             * 
-             * Same for the axios.get on 'resources'
-             */
-            axios.get('/subjectsInfo.json'),
-            axios.get('/subjectsRoutes.json')
-        ])
-            .then(([responseSubjectsInfo, responseSubjectsRoutes]) => {
-                /**
-                 * showing if the data was fetched correctly
-                 */
-                console.log("Subjects Info Response:", responseSubjectsInfo);
-                console.log("Subjects Route Response:", responseSubjectsRoutes);
-
-                setSubjectsInfo(responseSubjectsInfo.data);
-                setSubjectsRoutes(responseSubjectsRoutes.data);
-
-                /**
-                 * Union of routing and information to display in cards
-                 */
-                const combinedSubjects = responseSubjectsInfo.data.map((info: TContentInfo) => {
-                    /*  matching routes with current id */
-                    const route = responseSubjectsRoutes.data.find((r: TContentRoute) => r.id === info.id)
-
+    
+        axios.get('/your-endpoint')
+            .then((response) => {
+                // Log the entire response to debug
+                console.log("API Response:", response);
+    
+                // Extract the data inside `answers`
+                const data = response.data.answers;
+    
+                // Map the data to match TContentInfo
+                const subjectsInfo: TContentInfo[] = Array.isArray(data) ? data : [data]; // Ensure it's an array
+    
+                // Generate routes if needed (example assumes route logic)
+                const subjectsRoutes: TContentRoute[] = subjectsInfo.map((info) => ({
+                    id: info.id.toString(),
+                    route: `/subjects/${info.id}`,
+                }));
+    
+                // Combine the data and routes
+                const combinedSubjects = subjectsInfo.map((info) => {
+                    const route = subjectsRoutes.find((r) => r.id === info.id.toString());
                     return {
                         ...info,
                         ...route,
-                        /** failure case */
-                        route: route?.route || ''
-                    }
-                })
-
+                        route: route?.route || '',
+                    };
+                });
+    
+                // Update state
+                setSubjectsInfo(subjectsInfo);
+                setSubjectsRoutes(subjectsRoutes);
                 setSubjectsCards(combinedSubjects);
                 setErrorSubjectsInfo(null);
             })
             .catch((error) => {
+                console.error('Failed to fetch subjectsCard:', error);
                 setErrorSubjectsInfo('Failed to fetch subjectsCard');
-                console.error('One or more requests failed', error);
             })
             .finally(() => {
                 setLoadingSubjectsInfo(false);
             });
     }, []);
+    
 
 
     useEffect(() => {
