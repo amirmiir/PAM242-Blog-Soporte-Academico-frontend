@@ -154,14 +154,12 @@ const RegisterForm: FC = () => {
                 <div>
                     <button
                         type="submit"
-                        className="bg-red-500 hover:bg-red-700 w-full text-white font-bold py-2 px-8 rounded focus:outline-none"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded focus:outline-none"
                     >
-                        Regístrarse
+                        Register
                     </button>
                 </div>
             </form>
-
-
         </div>
     );
 }

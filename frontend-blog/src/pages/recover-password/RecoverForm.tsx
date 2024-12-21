@@ -1,12 +1,15 @@
-import { FC, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form';
+import React, { useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 type Inputs = {
-    email: string
-}
+    email: string;
+    newpassword: string;
+    newpassword2: string;
+};
 
-const RecoverForm: FC = () => {
+const RecoverForm: React.FC<Props> = () => {
     const [message, setMessage] = useState<string>('');
+    const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
 
     const {
         register,
@@ -17,11 +20,8 @@ const RecoverForm: FC = () => {
     const onSubmit: SubmitHandler<Inputs> = async (formData) => {
         console.log('Form Data:', formData);
 
-        
         try {
-            //to-fix: next line with proper routing for correct working
-            const response = await fetch('http://localhost:4000/users/login', {  //fetch es una API para realizar solicitudes HTTP
-
+            const response = await fetch('http://localhost:4000/users/changePassword', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -31,17 +31,17 @@ const RecoverForm: FC = () => {
 
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.message || 'Request failed');
+                throw new Error(error.message || 'ChangePassword failed');
             }
 
-            //Se logeo exitosamente
             const responseData = await response.json();
             console.log(responseData);
 
-            setMessage('Request sent successfully!');
-
+            setMessage('¡Contraseña actualizada exitosamente!');
+            setIsSuccess(true);
         } catch (error: any) {
             setMessage(error.message || 'An error occurred');
+            setIsSuccess(false);
         }
     };
 
@@ -56,7 +56,7 @@ const RecoverForm: FC = () => {
                         Email
                     </label>
                     <input
-                        {...register('email', { required: true })}
+                        {...register('email', { required: 'Email is required.' })}
                         type="email"
                         id="email"
                         placeholder="Email Address"
@@ -64,21 +64,71 @@ const RecoverForm: FC = () => {
                     />
                     {errors.email && (
                         <p className="text-red-500 text-xs italic">
-                            Email is required.
+                            {errors.email.message}
                         </p>
                     )}
                 </div>
+                <div className="mb-4">
+                    <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="newpassword"
+                    >
+                        Nueva Contraseña
+                    </label>
+                    <input
+                        {...register('newpassword', { required: 'Password is required.' })}
+                        type="password"
+                        id="newpassword"
+                        placeholder="Password"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow"
+                    />
+                    {errors.newpassword && (
+                        <p className="text-red-500 text-xs italic">
+                            {errors.newpassword.message}
+                        </p>
+                    )}
+                </div>
+                <div className="mb-4">
+                    <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="newpassword2"
+                    >
+                        Repetir Contraseña
+                    </label>
+                    <input
+                        {...register('newpassword2', { required: 'Repeat password is required.' })}
+                        type="password"
+                        id="newpassword2"
+                        placeholder="Repeat Password"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow"
+                    />
+                    {errors.newpassword2 && (
+                        <p className="text-red-500 text-xs italic">
+                            {errors.newpassword2.message}
+                        </p>
+                    )}
+                </div>
+                {message && (
+                    <p
+                        className={`text-xs italic mb-3 ${
+                            isSuccess ? 'text-green-500' : 'text-red-500'
+                        }`}
+                    >
+                        {message}
+                    </p>
+                )}
+
                 <div>
                     <button
                         type="submit"
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-8 rounded focus:outline-none w-full"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded focus:outline-none"
                     >
-                        Enviar enlace de recuperación
+                        Change Password
                     </button>
                 </div>
             </form>
         </div>
     );
-}
+};
 
-export default RecoverForm
+export default RecoverForm;
