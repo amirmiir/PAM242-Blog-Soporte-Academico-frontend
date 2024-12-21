@@ -36,10 +36,16 @@ const LoginForm: FC = () => {
             }
 
             //Se logeo exitosamente
-            const responseData = await response.json();
+            const { token } = await response.json(); //Token
+            console.log('Token:', token);
+            localStorage.setItem('access_token', token); 
+
+            const responseData = await response.json(); //Responde data contiene datos del usuario (id,email) y un mensaje('Logeo satisfactorio')
             console.log(responseData);
             
             setMessage('Login successful!');
+
+            //navigate(); 
             
         } catch (error: any) {
             setMessage(error.message || 'An error occurred');
