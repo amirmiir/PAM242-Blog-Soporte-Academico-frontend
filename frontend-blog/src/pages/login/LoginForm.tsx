@@ -1,7 +1,7 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FaGoogle } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ROUTES } from '../../shared/utils/routes';
 
 type Inputs = {
@@ -23,7 +23,7 @@ const LoginForm: FC = () => {
 
         try {
             const response = await fetch('http://localhost:4000/users/login', {  //fetch es una API para realizar solicitudes HTTP
-            
+
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,22 +32,22 @@ const LoginForm: FC = () => {
             });
 
             if (!response.ok) {
-                const error = await response.json(); 
-                throw new Error(error.message||'Login failed');
+                const error = await response.json();
+                throw new Error(error.message || 'Login failed');
             }
 
             //Se logeo exitosamente
             const { token } = await response.json(); //Token
             console.log('Token:', token);
-            localStorage.setItem('access_token', token); 
+            localStorage.setItem('access_token', token);
 
             const responseData = await response.json(); //Responde data contiene datos del usuario (id,email) y un mensaje('Logeo satisfactorio')
             console.log(responseData);
-            
+
             setMessage('Login successful!');
 
             //navigate(); 
-            
+
         } catch (error: any) {
             setMessage(error.message || 'An error occurred');
         }

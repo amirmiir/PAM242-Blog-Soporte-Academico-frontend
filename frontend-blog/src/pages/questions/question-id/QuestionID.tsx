@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import QuestionIDContent from './QuestionIDContent'
 import NavBar from '../../../components/nav-bar/NavBar'
 import Footer from '../../../components/footer/Footer'
@@ -6,6 +6,8 @@ import AnswersDisplay from './AnswersDisplay'
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 import useDebounce from '../../../hooks/debounce/useDebounce'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom'
+import { ROUTES } from '../../../shared/utils/routes'
 
 type Question = {
     'id': number,
@@ -33,6 +35,7 @@ type Inputs = {
 }
 
 const QuestionsID: FC<QuestionIDProps> = ({ id }) => {
+
     const question: Question = {
         "id": 32,
         "title": "What is the difference between let, var, and const in JavaScript?",
@@ -78,6 +81,7 @@ const QuestionsID: FC<QuestionIDProps> = ({ id }) => {
     */
 
     const [message, setMessage] = useState<string>('');
+    const [token, setToken] = useState<string | null>(null);
 
     const [body, setBody] = useState<string>('');
     const debouncedBody = useDebounce(body, 500);
@@ -119,12 +123,27 @@ const QuestionsID: FC<QuestionIDProps> = ({ id }) => {
         }
     };
 
+    useEffect(() => {
+        const verifyToken = () => {
+            const storedToken = localStorage.getItem('access_token'); // Fetch token directly
+            if (!storedToken) {
+                console.log("User is not logged in");
+                setToken(null); // Explicitly clear token state
+                return;
+            }
+
+            setToken(storedToken); // Update token state
+        };
+
+        verifyToken();
+    }, []);
+
     return (
         <div>
             <NavBar />
 
             <MathJaxContext >
-                <div className="flex flex-col w-5/6 md:w-3/5 mx-auto bg-white p-4">
+                <div className="flex flex-col w-5/6 md:w-3/5 mx-auto bg-white p-4 space-y-8">
                     {/* Question content on display */}
                     <div className="flex flex-col">
                         <div className="flex flex-col space-y-4">
@@ -148,7 +167,7 @@ const QuestionsID: FC<QuestionIDProps> = ({ id }) => {
                                 answers.map((answer: Answer, index: number) => (
                                     <div className="flex flex-col" key={index}>
                                         <div><p>{answer.content}</p></div>
-                                        <span className="w-11/12 border border-gray-200 mx-auto"></span>
+                                        <span className="w-full border-b border-gray-200 mx-auto"></span>
                                     </div>
                                 ))
                             }
@@ -157,71 +176,64 @@ const QuestionsID: FC<QuestionIDProps> = ({ id }) => {
 
                     {/* Answer submission */}
 
-                    <form onSubmit={handleSubmit(onSubmit)} id="login-form" className="space-y-4">
-                        <div className="mb-4">
-                            <label
-                                className="block text-gray-700 text-sm font-bold"
-                                htmlFor="text"
-                            >
-                                Título
-                            </label>
-                            <span className="text-xs mb-2">Sé específico e imagina que estás haciendo la pregunta a otra persona.</span>
-                            <input
-                                {...register('title', { required: true })}
-                                type="text"
-                                id="title"
-                                placeholder="e.g. ¿Existe una función en R para obtener el índice de un elemento en un vector?"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow" onChange={(e) => setTitle(e.target.value)}
-                            />
-                            {errors.title && (
-                                <p className="text-red-500 text-xs italic">
-                                    Title is required.
-                                </p>
-                            )}
-                        </div>
-                        <div className="mb-4">
-                            <label
-                                className="block text-gray-700 text-sm font-bold"
-                                htmlFor="body"
-                            >
-                                Cuerpo
-                            </label>
-                            <span className="text-xs mb-2">Incluye toda la información que alguien necesitaría para responder tu pregunta.</span>
-                            <textarea
-                                {...register('body', { required: true })}
-                                id="body"
-                                placeholder="Escribe aquí los detalles de tu pregunta en formato LaTex..."
-                                className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow resize-vertical min-h-[8rem]"
-                                onChange={(e) => setBody(e.target.value)}
-                            />
-                            {errors.body && (
-                                <p className="text-red-500 text-xs italic">
-                                    Body is required
-                                </p>
-                            )}
-                        </div>
+                    <div className="space-y-2">
+                        <h2 className="text-xl tracking-wide font-bold">Añade una respuesta</h2>
+                        <form onSubmit={handleSubmit(onSubmit)} id="login-form" className="space-y-4">
 
-
-                        <MathJaxContext>
-                            <h3 className="text-xl tracking-wider font-bold">Vista previa</h3>
-
-                            <div>
-                                <h2 className="text-lg tracking-wide font-semibold">Cuerpo:</h2>
-                                <MathJax>
-                                    { /* math content */}
-                                    {debouncedBody}
-                                </MathJax>
+                            <div className="mb-4">
+                                <label
+                                    className="block text-gray-700 text-sm font-bold"
+                                    htmlFor="body"
+                                >
+                                    Cuerpo
+                                </label>
+                                <span className="text-xs mb-2">Incluye toda la información que alguien necesitaría para responder tu pregunta.</span>
+                                <textarea
+                                    {...register('body', { required: true })}
+                                    id="body"
+                                    placeholder="Escribe aquí los detalles de tu pregunta en formato LaTex..."
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow resize-vertical min-h-[8rem]"
+                                    onChange={(e) => setBody(e.target.value)}
+                                />
+                                {errors.body && (
+                                    <p className="text-red-500 text-xs italic">
+                                        Body is required
+                                    </p>
+                                )}
                             </div>
-                        </MathJaxContext>
-                        <div >
-                            <button
-                                type="submit"
-                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-8 mt-4 rounded focus:outline-none w-auto mx-auto"
-                            >
-                                Enviar Respuesta
-                            </button>
-                        </div>
-                    </form>
+
+
+                            <MathJaxContext>
+                                <h3 className="text-xl tracking-wider font-bold">Vista previa</h3>
+
+                                <div>
+                                    <h2 className="text-lg tracking-wide font-semibold">Cuerpo:</h2>
+                                    <MathJax>
+                                        { /* math content */}
+                                        {debouncedBody}
+                                    </MathJax>
+                                </div>
+                            </MathJaxContext>
+                            <div >
+                                {
+                                    token ?
+                                        <button
+                                            type="submit"
+                                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-8 mt-4 rounded focus:outline-none w-auto mx-auto"
+                                        >
+                                            Enviar Respuesta
+                                        </button>
+                                        :
+                                        <Link to={ROUTES.LOGIN}
+                                            className="bg-white hover:bg-gray-100 text-red-500 border border-red-500     font-bold py-2 px-8 mt-4 rounded focus:outline-none w-auto mx-auto"
+                                        >
+                                            Iniciar Sesión
+                                        </Link>
+
+                                }
+                            </div>
+                        </form>
+                    </div>
 
 
                 </div>

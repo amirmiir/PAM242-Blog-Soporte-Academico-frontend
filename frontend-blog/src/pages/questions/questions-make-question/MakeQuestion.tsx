@@ -1,14 +1,30 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import NavBar from '../../../components/nav-bar/NavBar'
 import Footer from '../../../components/footer/Footer'
 import QuestionForm from './QuestionForm'
+import { ROUTES } from '../../../shared/utils/routes'
+import { useNavigate } from 'react-router-dom'
 
 /**
  * Given that we chose a similar platform to stackExchange, we will be using
  * Better-React-MathJax for rendering our LaTex documentation.
  */
 const MakeQuestion: FC = () => {
+    const navigate = useNavigate();
 
+
+    useEffect(() => {
+        const verifyToken = async () => {
+            const token = localStorage.getItem('access_token');
+
+            if (!token) {
+                navigate(ROUTES.LOGIN);
+                return;
+            }
+        };
+
+        verifyToken();
+    }, [navigate]);
     /** 
      * this is a user-logged only accessible page
     */

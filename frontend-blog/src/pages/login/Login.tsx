@@ -1,5 +1,5 @@
-import { FC } from 'react'
-import { Link } from 'react-router-dom';
+import { FC, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../shared/utils/routes';
 import bsalogo from '../../assets/bsa-logo.svg'
 import librosLogin from '../../assets/images/librosLogin.svg'
@@ -7,11 +7,26 @@ import checkIcon from '../../assets/icons/checkIcon.png'
 import LoginForm from './LoginForm';
 
 const Login: FC = () => {
+    const navigate = useNavigate();
+
     const features: string[] = [
         "Accede a información actualizada sobre los cursos de la facultad",
         "Comparte tus dudas y conocimientos",
         "Hecho por estudiantes, para estudiantes"
     ];
+
+    useEffect(() => {
+        const verifyToken = async () => {
+            const token = localStorage.getItem('access_token');
+
+            if (token) {
+                navigate(ROUTES.SUBJECTS.ROOT);
+                return;
+            }
+        };
+
+        verifyToken();
+    }, [navigate]);
 
     return (
         <div className="h-screen overflow-hidden flex flex-row justify-between items-center bg-gray-900">

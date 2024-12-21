@@ -13,10 +13,11 @@ import Subjects from '../pages/subjects/Subjects';
 import SubjectID from '../pages/subjects/subject-id/SubjectID';
 import RecoverPassword from '../pages/recover-password/RecoverPassword';
 import Admin from '../pages/admin/Admin';
+import RecoverEmail from '../pages/recover-email/RecoverEmail';
 
 const publicRoutes: RouteObject[] = [
     {
-        path: ROUTES.LANDING.ROOT  ,
+        path: ROUTES.LANDING.ROOT,
         element: <Landing />
     },
     {
@@ -30,6 +31,10 @@ const publicRoutes: RouteObject[] = [
     {
         path: ROUTES.RECOVERPASSWORD,
         element: <RecoverPassword />
+    },
+    {
+        path: ROUTES.RECOVEREMAIL,
+        element: <RecoverEmail />
     },
     {
         path: ROUTES.QUESTIONS.ROOT,
@@ -49,15 +54,15 @@ const publicRoutes: RouteObject[] = [
     },
     { //to be erased or left for further testing
         path: '/subjects/id-test',
-        element: <SubjectID id="test-id"/>
-    }, 
+        element: <SubjectID id="test-id" />
+    },
     { //to be erased or left for further testing
         path: '/questions/id-test',
-        element: <QuestionID id="test-id"/>
+        element: <QuestionID id="test-id" />
     }
 ]
 
-const routes: RouteObject[] =[
+const routes: RouteObject[] = [
     ...publicRoutes,
     {
         path: '*',

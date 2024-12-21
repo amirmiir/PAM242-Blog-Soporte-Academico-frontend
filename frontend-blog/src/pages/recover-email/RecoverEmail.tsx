@@ -114,58 +114,29 @@ const RecoverEmail: FC = () => {
                     <div className="mb-4">
                         <label
                             className="block text-gray-700 text-sm font-bold mb-2"
-                            htmlFor="newpassword"
+                            htmlFor="email"
                         >
-                            Nueva Contraseña
+                            Email
                         </label>
                         <input
-                            {...register('newpassword', { required: 'Password is required.' })}
-                            type="password"
-                            id="newpassword"
-                            placeholder="Password"
+                            {...register('email', { required: true })}
+                            type="email"
+                            id="email"
+                            placeholder="Email Address"
                             className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow"
                         />
-                        {errors.newpassword && (
+                        {errors.email && (
                             <p className="text-red-500 text-xs italic">
-                                {errors.newpassword.message}
+                                Email is required.
                             </p>
                         )}
                     </div>
-                    <div className="mb-4">
-                        <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
-                            htmlFor="newpassword2"
-                        >
-                            Repetir Contraseña
-                        </label>
-                        <input
-                            {...register('newpassword2', { required: 'Repeat password is required.' })}
-                            type="password"
-                            id="newpassword2"
-                            placeholder="Repeat Password"
-                            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow"
-                        />
-                        {errors.newpassword2 && (
-                            <p className="text-red-500 text-xs italic">
-                                {errors.newpassword2.message}
-                            </p>
-                        )}
-                    </div>
-                    {message && (
-                        <p
-                            className={`text-xs italic mb-3 ${isSuccess ? 'text-green-500' : 'text-red-500'
-                                }`}
-                        >
-                            {message}
-                        </p>
-                    )}
-
                     <div>
                         <button
                             type="submit"
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded focus:outline-none"
+                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-8 rounded focus:outline-none w-full"
                         >
-                            Change Password
+                            Enviar enlace de recuperación
                         </button>
                     </div>
                 </form>
@@ -177,4 +148,4 @@ const RecoverEmail: FC = () => {
     );
 }
 
-export default RecoverForm;
+export default RecoverEmail

@@ -14,7 +14,8 @@ export const publicRoutes = {
     },
     LOGIN: '/login',
     REGISTER: '/register',
-    RECOVERPASSWORD: '/recover-password',
+    RECOVERPASSWORD: '/recover-password', //to be deleted for a dynamic route (deleted when used or after a short time span)
+    RECOVEREMAIL: '/recover-email', //static route to submit forms that send an email to the address sent
 
     SUBJECTS: {
         ROOT: '/subjects',
