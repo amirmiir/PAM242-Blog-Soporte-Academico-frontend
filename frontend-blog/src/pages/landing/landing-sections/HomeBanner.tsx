@@ -86,7 +86,7 @@ const HomeBanner: FC = () => {
                             {/* Through this div we can set a darker color to the background image */}
                             <div className="absolute inset-0 bg-black opacity-50"></div>
 
-                            <div className="relative w-3/5 pl-24">
+                            <div className="relative w-4/5 md:w-3/5 pl-24">
                                 <div className="title text-2xl md:text-5xl font-extrabold" data-swiper-parallax="-300">
                                     {item.header}
                                 </div>

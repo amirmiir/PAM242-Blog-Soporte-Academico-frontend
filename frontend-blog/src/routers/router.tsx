@@ -14,6 +14,7 @@ import SubjectID from '../pages/subjects/subject-id/SubjectID';
 import RecoverPassword from '../pages/recover-password/RecoverPassword';
 import Admin from '../pages/admin/Admin';
 import RecoverEmail from '../pages/recover-email/RecoverEmail';
+import MyProfile from '../pages/profiles/MyProfile';
 
 const publicRoutes: RouteObject[] = [
     {
@@ -51,6 +52,10 @@ const publicRoutes: RouteObject[] = [
     {
         path: ROUTES.ADMIN,
         element: <Admin />
+    },
+    {
+        path: ROUTES.MYPROFILE,
+        element: <MyProfile />
     },
     { //to be erased or left for further testing
         path: '/subjects/id-test',
