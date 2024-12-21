@@ -77,7 +77,7 @@ const NavBar: FC = () => {
                     {!isSmallScreen && (
                         <div className="relative h-full w-full">
                             <button onClick={() => setIsExploreOpen(!isExploreOpen)} className="h-full">
-                                <div className="flex flex-row items-center space-x-1 px-4 hover:bg-red-500 text-gray-600 hover:text-white h-full">
+                                <div className="flex flex-row items-center space-x-1 px-4 hover:bg-red-500 text-gray-600 hover:text-white h-full transition-all duration-200">
                                     <span>Explorar</span>
                                     <IoIosArrowDown className="h-3 translate-y-0.5" />
                                 </div>
@@ -87,8 +87,8 @@ const NavBar: FC = () => {
                                 <div className="absolute left-1/2 flex flex-row transform -translate-x-1/2 bg-gray-100 border rounded-b-md pb-1 text-right z-50 w-full">
                                     <ul className="flex flex-col w-full items-start">
                                         {exploreNavigation.map((item: navigationLabel, index: number) => (
-                                            <li key={index} className="text-gray-600 pr-6 pb-2 hover:text-white hover:bg-red-500 w-full">
-                                                <Link to={item.to}>
+                                            <li key={index} className="text-gray-600 pr-6 pb-2 hover:text-white hover:bg-red-500 w-full transition-all duration-200">
+                                                <Link to={item.to} >
                                                     {item.name}
                                                 </Link>
                                             </li>
@@ -101,7 +101,7 @@ const NavBar: FC = () => {
 
                     {!isSmallScreen && (
                         landingNavigation.map((item: navigationLabel, index: number) => (
-                            <a key={index} href={item.to} className="text-gray-600 h-full hover:text-white hover:bg-red-500 px-4 place-content-center">
+                            <a key={index} href={item.to} className="text-gray-600 h-full hover:text-white hover:bg-red-500 px-4 place-content-center transition-all duration-200">
                                 {item.name}
                             </a>
                         ))
@@ -114,10 +114,23 @@ const NavBar: FC = () => {
                         <div className="border-l border-gray-300 h-full absolute left-0"></div>
 
                         {
-                            token ?
-                                <button onClick={() => setIsUserOpen(!isUserOpen)}>
-                                    <FaCircleUser className="h-6" />
-                                </button>
+                            true ?
+                                <div className="w-auto">
+                                    <button onClick={() => setIsUserOpen(!isUserOpen)}>
+                                        <FaCircleUser className="h-6" />
+                                    </button>
+                                    {
+                                        isUserOpen && (
+                                            <div className="absolute left-1/2 transform -translate-x-1/2 bg-gray-100 border rounded-md z-50 w-40 shadow-md pb-1">
+                                                <ul className="flex flex-col w-full text-sm ">
+                                                
+                                                    <li className="relative w-full"><Link to={ROUTES.MYPROFILE} className="block p-2 text-gray-600 pb-2 hover:text-white hover:bg-red-500 w-full transition-all duration-200 text-start">Mi Perfil</Link></li>
+                                                    <li className="relative w-full justify-start"><button onClick className="block p-2 text-gray-600 pb-2 hover:text-white hover:bg-red-500 w-full transition-all duration-200 text-start">Cerrar Sesión</button></li> {/*to add the onClick function for logout*/}
+                                                </ul>
+                                            </div>
+                                        )
+                                    }
+                                </div>
                                 :
                                 <div className="flex flex-row space-x-2">
                                     <Link
@@ -170,8 +183,8 @@ const NavBar: FC = () => {
                                 {
                                     token ?
                                         <ul>
-                                            <li><Link to={ROUTES.MYPROFILE}>Mi Perfil</Link></li>
-                                            <li><button onClick>Cerrar Sesión</button></li> {/*to add the onClick function for logout*/}
+                                            <li className="text-gray-600 pr-6 pb-2 hover:text-white hover:bg-red-500 w-full"><Link to={ROUTES.MYPROFILE} >Mi Perfil</Link></li>
+                                            <li className="text-gray-600 pr-6 pb-2 hover:text-white hover:bg-red-500 w-full"><button>Cerrar Sesión</button></li> {/*to add the onClick function for logout*/}
                                         </ul>
                                         :
 
