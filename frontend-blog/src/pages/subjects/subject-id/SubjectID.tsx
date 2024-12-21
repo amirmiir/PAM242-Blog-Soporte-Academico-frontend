@@ -29,6 +29,7 @@ const SubjectID: FC<SubjectIDProps> = ({ id }) => {
      * passing it to SubjectIDContent
      */
 
+
     const subject: Subject = { //subject-test
         'id': 'bma-01',
         'level': 'Undergrade',
@@ -45,14 +46,14 @@ const SubjectID: FC<SubjectIDProps> = ({ id }) => {
                 'id': 'Semana 1',
                 'description': 'Esta es una descripción introductoria',
                 'subtitle': 'Funciones: Generalidades',
-                'videoID': '2g811Eo7K8U',
+                'videoID': 'Gnm3hIcjiCQ',
                 'content': "\\(\\mathcal{P}^2 \\xleftarrow{} \\emptyset\\)"
             },
             {
                 'id': 'Semana 2',
                 'description': 'Esta es una descripción introductoria',
                 'subtitle': 'Funciones definidas por partes',
-                'videoID': '2g811Eo7K8U',
+                'videoID': 'Gnm3hIcjiCQ',
                 'content': "\\(\\mathcal{P}^2 \\xleftarrow{} \\emptyset\\)"
             }
         ]
@@ -66,9 +67,7 @@ const SubjectID: FC<SubjectIDProps> = ({ id }) => {
 
             <Footer />
         </div>
-
-
     )
 }
 
-export default SubjectID
+export default SubjectID;

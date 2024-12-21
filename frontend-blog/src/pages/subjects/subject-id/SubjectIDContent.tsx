@@ -23,8 +23,8 @@ type SubjectIDContentProps = {
 
 const SubjectIDContent: FC<SubjectIDContentProps> = ({ subject }) => {
 
-    const [selectedSection, setSelectedSection] = useState<string>('Presentation');
-    const [displayedSection, setDisplayedSelection] = useState<Section | null>(null)
+    const [selectedSection, setSelectedSection] = useState<string>('Introducción');
+    const [displayedSection, setDisplayedSelection] = useState<Section | null>(null);
 
     useEffect(() => {
         const sectionToDisplay = subject.sections.find((section) => section.id === selectedSection);
@@ -54,13 +54,16 @@ const SubjectIDContent: FC<SubjectIDContentProps> = ({ subject }) => {
                         }
                     </div>
                 </div>
-                <div className="flex flex-col md:w-4/5 bg-gray-200 p-4">
-                    {/* Heading for a filter */}
-                    <h2 className="text-2xl">{displayedSection?.subtitle}</h2>
+                <div className="flex flex-col md:w-4/5 bg-gray-200 p-4 space-y-4" >
+                    {/* Section */}
+                    <h2 className="text-2xl font-semibold">{displayedSection?.subtitle}</h2>
                     <p>{displayedSection?.description}</p>
+
                     {
                         displayedSection?.videoID && (
-                            <YouTube videoId={displayedSection?.videoID} />
+                            <div className="mx-auto bg-white">
+                                <YouTube videoId={displayedSection?.videoID} />
+                            </div>
                         )
                     }
                     {
