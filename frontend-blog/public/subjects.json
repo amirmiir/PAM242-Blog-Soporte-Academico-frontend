@@ -1,0 +1,28 @@
+{
+    "id": "fc-BMA-02",
+    "level": "Undergrade",
+    "name": "Differential Calculus",
+    "sections": [
+        {
+            "id": "Introducción",
+            "description": "Esta sección cubre el propósito y contenido del curso de cálculo diferencial.",
+            "subtitle": "Sílabo",
+            "videoID": "",
+            "content": "Bienvenidos al curso de Cálculo Diferencial."
+        },
+        {
+            "id": "Semana 1",
+            "description": "Exploración de conceptos básicos como funciones y su representación gráfica.",
+            "subtitle": "Funciones: Generalidades",
+            "videoID": "Gnm3hIcjiCQ",
+            "content": "\\(f(x) = mx + b\\) representa una función lineal."
+        },
+        {
+            "id": "Semana 2",
+            "description": "Introducción a funciones definidas por tramos y sus aplicaciones.",
+            "subtitle": "Funciones definidas por partes",
+            "videoID": "dQw4w9WgXcQ",
+            "content": "\\(f(x) = \\begin{cases} x^2 & x < 0 \\\\ 2x + 1 & x \\geq 0 \\end{cases}\\)"
+        }
+    ]
+}

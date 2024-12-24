@@ -29,10 +29,10 @@ const Login: FC = () => {
     }, [navigate]);
 
     return (
-        <div className="h-screen overflow-hidden flex flex-row justify-between items-center bg-gray-900">
+        <div className="h-screen overflow-hidden flex flex-col md:flex-row justify-between items-center bg-gray-900">
 
             {/* Información */}
-            <div className=" w-1/4 ml-32 space-y-4">
+            <div className="w-full mx-auto mt-16 md:mt-0 md:w-1/4 space-y-4">
                 <Link to={ROUTES.LANDING.ROOT} className="flex text-center items-center space-x-2">
                     <img src={bsalogo} alt="" className="pl-8 h-10" />
                     <h1 className="text-4xl text-gray-400">BSA </h1>
